@@ -1,0 +1,14 @@
+{
+    "levelsScreen": {
+        "title": "Train"
+    },
+    "historyScreen": {
+        "title": "History"
+    },
+    "customTrainingScreen": {
+        "title": "Custom plan"
+    },
+    "StartTrainingScreen": {
+        "title": "Training overview"
+    }
+}

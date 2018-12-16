@@ -1,0 +1,44 @@
+{
+    "levels": [
+        [
+            {
+                "id": "full",
+                "duration": 20
+            },
+            {
+                "id": "elbow",
+                "duration": 20
+            },
+            {
+                "id": "full",
+                "duration": 20
+            },
+            {
+                "id": "elbow",
+                "duration": 20
+            }
+        ],
+        [
+            {
+                "id": "full",
+                "duration": 30
+            },
+            {
+                "id": "elbow",
+                "duration": 25
+            },
+            {
+                "id": "full",
+                "duration": 30
+            },
+            {
+                "id": "elbow",
+                "duration": 25
+            },
+            {
+                "id": "reverse",
+                "duration": 40
+            }
+        ]
+    ]
+}
