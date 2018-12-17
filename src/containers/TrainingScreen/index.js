@@ -14,6 +14,7 @@ export class TrainingScreen extends Component {
         this.getBottom = this.getBottom.bind(this);
         this.secondElapsed = this.secondElapsed.bind(this);
         this.defaultWaitTime = 5;
+        this.mounted;
 
         this.state = {
             first: true,
@@ -32,17 +33,20 @@ export class TrainingScreen extends Component {
             timeLeft: timeLeft
         });
 
+        this.mounted = true;
+
         setInterval(this.secondElapsed, 1000);
     }
 
     componentWillUnmount() {
+        this.mounted = false;
         clearInterval(this.secondElapsed, 1000);
     }
 
     secondElapsed() {
         const { isWaiting, timeLeft, index, waitTimeLeft, finish, first } = this.state;
-        
-        if(finish) {
+
+        if(finish || !this.mounted) {
             return;
         }
 

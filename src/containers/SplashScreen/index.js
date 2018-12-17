@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import globalStyles from '../../styles';
+import { connect } from 'react-redux';
 
-export default class SplashScreen extends Component {
+export class SplashScreen extends Component {
     componentDidMount() {
         this.props.navigation.navigate('RootScreen');
     }
@@ -17,3 +18,17 @@ export default class SplashScreen extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen);

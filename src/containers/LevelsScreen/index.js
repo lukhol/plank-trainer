@@ -11,6 +11,10 @@ export class LevelsScreen extends Component {
         this.onLevelChoosen = this.onLevelChoosen.bind(this);
     }
 
+    componentDidMount() {
+        this.props.findAllCustom();
+    }
+
     onLevelChoosen(id) {
         this.props.chooseLevel(id);
         this.props.navigation.navigate('StartTrainingScreen');
@@ -22,6 +26,7 @@ export class LevelsScreen extends Component {
                 <FlatList
                     style={{flex:1}}
                     data={this.props.levels.levels}
+                    keyExtractor={(item, index) => ""+index}
                     renderItem={(props) => 
                         <LevelItem 
                             onPress={this.onLevelChoosen}
@@ -50,7 +55,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        chooseLevel: (id) => dispatch(LevelsActions.chooseLevel(id))
+        chooseLevel: (id) => dispatch(LevelsActions.chooseLevel(id)),
+        findAllCustom: () => dispatch(LevelsActions.findAllCustom()),
+        insert: (level) => dispatch(LevelsActions.insert(level))
     }
 }
 
