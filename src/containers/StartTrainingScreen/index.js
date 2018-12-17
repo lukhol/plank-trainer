@@ -22,6 +22,7 @@ export class StartTrainingScreen extends Component {
                 <Button 
                     style={{height: 40,  margin: 6}}
                     full
+                    success
                     onPress={() => {
                         this.props.chooseTrainingItems(this.props.planks);
                         this.props.navigation.navigate('TrainingScreen');
@@ -37,12 +38,17 @@ export class StartTrainingScreen extends Component {
 }
 
 function preparePlanks(state) {
-    const levelPlanks = state.levels.levels.find(item => item.id === state.levels.choosenLevelId).planks;
+    let level = state.levels.levels.find(item => item.id === state.levels.choosenLevelId);
+    if(!level) {
+        //If not found in default search in custom
+        level = state.levels.customLevels.find(item => item.id === state.levels.choosenLevelId);
+    }
+    planks = level.planks;
     const allPlanks = state.planks;
     const propsPlanks = [];
-    for(let i = 0 ; i < levelPlanks.length ; i ++) {
-        const foundItem = allPlanks.find(item => item.id === levelPlanks[i].id);
-        const newItem = {...foundItem, duration: levelPlanks[i].duration}
+    for(let i = 0 ; i < planks.length ; i ++) {
+        const foundItem = allPlanks.find(item => item.id === planks[i].id);
+        const newItem = {...foundItem, duration: planks[i].duration}
         if(foundItem) {
             propsPlanks.push(newItem);
         }

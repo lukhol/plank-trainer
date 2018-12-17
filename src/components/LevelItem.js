@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { View, Image, FlatList, Text, StyleSheet } from 'react-native';
+import { View, Image, FlatList, Animated, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Body, Card, Button, H2 } from 'native-base';
-import images from '../images';
 import * as Utils from '../utils';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { LevelType } from '../common/constants';
+import Colors from '../common/colors';
+const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 export default class LevelItem extends Component {  
     constructor(props) {
@@ -23,10 +25,10 @@ export default class LevelItem extends Component {
                 <View style={styles.outerContainer}>
                     <View style={styles.leftContainer}>
                         <View style={styles.title}>
-                            <H2>Level {this.props.index + 1}</H2>    
+                            <H2>{this.props.item.name}</H2>    
                         </View>
                         <View style={styles.timeContainer}>
-                            <Icon name="clock" size={30} color="#42f462" />
+                            <Icon name="clock" size={30} color={Colors.PRIMARY_LIGHT} />
                             <Text style={styles.description}>
                                 {Utils.sec2time(this.getLevelDuration())}
                             </Text>
@@ -45,6 +47,16 @@ export default class LevelItem extends Component {
                         </Button>
                     </View>
                 </View>
+                {
+                    this.props.item.type === LevelType.CUSTOM &&  
+                    <AnimatedTouchable 
+                        onPress={() => this.props.onDelete(this.props.item.id)}
+                        style={{position: 'absolute', top: 0, right: 0, height: 35, width: 35, alignItems:"center", justifyContent: "center"}}>
+                        <View>
+                            <Icon name="trash" size={20} color={Colors.DANGER} />
+                        </View>
+                    </AnimatedTouchable>
+                }
             </Card>
         )
     }

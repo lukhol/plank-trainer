@@ -10,5 +10,8 @@
     },
     "startTrainingScreen": {
         "title": "Przegląd treningu"
+    },
+    "settingsScreen": {
+        "title": "Ustawienia"
     }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, FlatList, Text, StyleSheet } from 'react-native';
+import { View, Image, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Body, Card, CardItem, H2 } from 'native-base';
 import globalStyles from '../styles';
 import images from '../images';
@@ -7,7 +7,7 @@ import * as Utils from '../utils';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Colors from '../common/colors';
 
-export default class TrainingItem extends Component {    
+export default class CustomizeTrainingItem extends Component {    
     render() {
         return (
             <Card style={styles.card}>
@@ -16,10 +16,15 @@ export default class TrainingItem extends Component {
                 </View>
                 <View style={styles.body}>
                     <View style={styles.timeContainer}>
-                        <Icon name="clock" size={30} color={Colors.PRIMARY_LIGHT} />
+                        <TouchableOpacity onPress={() => this.props.decrease(this.props.item.id)}>
+                            <Icon name="minus" size={25} color={Colors.WARNING} />
+                        </TouchableOpacity>
                         <Text style={styles.description}>
                             {Utils.sec2time(this.props.item.duration)}
                         </Text>
+                        <TouchableOpacity onPress={() => this.props.increase(this.props.item.id)}>
+                            <Icon name="plus" size={25} color={Colors.WARNING} />
+                        </TouchableOpacity>
                     </View>
                     <Image 
                         source={images.getById(this.props.item.id)}
@@ -45,12 +50,14 @@ const styles = StyleSheet.create({
     },
     description: {
         //alignSelf: "center"
-        padding: 6
+        padding: 6,
+        fontSize: 19
     },
     title: {
         padding: 10
     },
     timeContainer: {
+        flexDirection: "row",
         padding: 10,
         alignItems: "center"
     }

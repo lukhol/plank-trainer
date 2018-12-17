@@ -6,7 +6,7 @@ export async function deleteById(id) {
     try {
         const allJson = await AsyncStorage.getItem(key);
         if(allJson != null) {
-            const all = JSON.parse(allJson);
+            let all = JSON.parse(allJson);
             all = all.filter(i => i.id !== id);
             await AsyncStorage.setItem(key, JSON.stringify(all));
         }

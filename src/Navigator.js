@@ -14,6 +14,7 @@ import CustomTrainingScreen from './containers/CustomTrainingScreen';
 import SplashScreen from './containers/SplashScreen';
 import StartTrainingScreen from './containers/StartTrainingScreen';
 import TrainingScreen from './containers/TrainingScreen';
+import SettingsScreen from './containers/SettingsScreen';
 import i18n from './translations/i18n';
 
 const rootNavigation = createTabNavigator(
@@ -36,12 +37,38 @@ const rootNavigation = createTabNavigator(
                 title: i18n.t('historyScreen.title') 
             }  
         },
+        SettingsScreen: {
+            screen: SettingsScreen,
+            navigationOptions: {
+                title: i18n.t('settingsScreen.title')
+            }
+        }
+    },
+    {
+        tabBarOptions: {
+            activeTintColor: '#000',
+            labelStyle: {
+                fontSize: 12,
+                color: "#fff"
+            },
+            style: {
+                backgroundColor: '#7646ff',
+            },
+            indicatorStyle: {
+                backgroundColor: '#fff',
+            }
+        },
+        tabBarPosition: "top",
+        allowFontScaling: true
     }
 );
 
 const rootStackNavigation = createStackNavigator(
     {   
-        RootScreen: { screen: rootNavigation, navigationOptions: { header: null } },
+        RootScreen: { 
+            screen: rootNavigation,
+             navigationOptions: { header: null }
+        },
         StartTrainingScreen: { 
             screen: StartTrainingScreen,
             navigationOptions: {
@@ -52,6 +79,12 @@ const rootStackNavigation = createStackNavigator(
             screen: TrainingScreen,
             navigationOptions: {
                 title: "Training"
+            }
+        },
+        SettingsScreen: {
+            screen: SettingsScreen,
+            navigationOptions: {
+                title: i18n.t('settingsScreen.title')
             }
         }
     }

@@ -9,7 +9,7 @@ import { Root } from "native-base";
 export default class App extends Component {
     componentDidMount() {
         initI18n(RNLanguages);
-        //console.disableYellowBox = true;
+        console.disableYellowBox = true;
     }
 
     render() {

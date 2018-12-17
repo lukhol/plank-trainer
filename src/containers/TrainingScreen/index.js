@@ -13,7 +13,6 @@ export class TrainingScreen extends Component {
         this.getCenter = this.getCenter.bind(this);
         this.getBottom = this.getBottom.bind(this);
         this.secondElapsed = this.secondElapsed.bind(this);
-        this.defaultWaitTime = 5;
         this.mounted;
 
         this.state = {
@@ -21,7 +20,7 @@ export class TrainingScreen extends Component {
             index: 0,
             timeLeft: 0,
             isWaiting: true,
-            waitTimeLeft: this.defaultWaitTime, 
+            waitTimeLeft: this.props.defaultWaitTime, 
             finish: false
         };
     }
@@ -77,14 +76,14 @@ export class TrainingScreen extends Component {
                 this.setState({
                     finish: true,
                     isWaiting: true,
-                    waitTimeLeft: this.defaultWaitTime
+                    waitTimeLeft: this.props.defaultWaitTime
                 });
             } else {
                 this.setState({
                     index: index+1,
                     timeLeft: this.props.items[index+1].duration,
                     isWaiting: true,
-                    waitTimeLeft: this.defaultWaitTime
+                    waitTimeLeft: this.props.defaultWaitTime
                 });
             }
 
@@ -133,7 +132,6 @@ export class TrainingScreen extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <View style={{...globalStyles.container, justifyContent: "space-around"}}>
                 <View style={styles.topContainer}>
@@ -165,7 +163,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        items: state.training.items
+        items: state.training.items,
+        defaultWaitTime: state.settings.defaultWaitTime
     }
 }
 
