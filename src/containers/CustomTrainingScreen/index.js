@@ -110,7 +110,6 @@ export class CustomTrainingScreen extends Component {
                 >
                     <Text style={globalStyles.textButton}>
                         Save ({sec2time(this.state.planks.reduce((sum, item, index) => {
-                            console.log({sum, item, index});
                             if(index === 1) {
                                 return sum.duration;
                             }

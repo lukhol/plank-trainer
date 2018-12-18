@@ -14,9 +14,14 @@ export default class LevelItem extends Component {
     }
 
     getLevelDuration() {
-        return this.props.item.planks
-            .map(i => i.duration)
-            .reduce((total, item) => total + item);
+        try {
+            return this.props.item.planks
+                .map(i => i.duration)
+                .reduce((total, item) => total + item);
+        } catch (e) {
+            console.log(e);
+            return -5;
+        }
     }
     
     render() {

@@ -16,5 +16,10 @@ export default StyleSheet.create({
         fontSize: 24,
         padding: 16,
         fontWeight: "bold"
+    },
+    centerContainer: {
+        flex: 1, 
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });

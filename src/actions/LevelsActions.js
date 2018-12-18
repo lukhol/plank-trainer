@@ -1,5 +1,5 @@
 import * as Actions from '../actions/names';
-import OwnTrainingService from '../OwnTrainingService'
+import OwnTrainingService from '../services/OwnTrainingService'
 const uuid = require('uuid/v4');
 
 export function chooseLevel(id) {

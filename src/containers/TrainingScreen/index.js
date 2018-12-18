@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import images from '../../images';
 import TrainingItem from '../../components/TrainingItem';
 import { Button } from 'native-base';
+import * as HistoryActions from '../../actions/HistoryActions';
 
 export class TrainingScreen extends Component {
     constructor(props) {
@@ -77,6 +78,11 @@ export class TrainingScreen extends Component {
                     finish: true,
                     isWaiting: true,
                     waitTimeLeft: this.props.defaultWaitTime
+                });
+
+                this.props.saveTrainingHistory({
+                    datetime: new Date().toISOString(),
+                    items: this.props.items
                 });
             } else {
                 this.setState({
@@ -170,7 +176,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        saveTrainingHistory: (historyItem) => dispatch(HistoryActions.insert(historyItem))
     }
 }
 
