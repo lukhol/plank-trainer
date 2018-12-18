@@ -3,7 +3,7 @@ import * as Actions from './names';
 
 export const insert = (historyItem) => async dispatch => {
     dispatch({ type: Actions.SAVE_HISTORY_ITEM_START});
-    await HistoryService.saveTrining(historyItem);
+    await HistoryService.saveTraining(historyItem);
     dispatch({type: Actions.SAVE_HISTORY_ITEM_END});
 }
 

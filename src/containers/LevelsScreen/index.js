@@ -5,6 +5,8 @@ import globalStyles from '../../styles';
 import { connect } from 'react-redux';
 import LevelItem from '../../components/LevelItem';
 import * as LevelsActions from '../../actions/LevelsActions';
+import { Padding } from '../../common/constants';
+import OverflowLoader from '../../components/OverflowLoader';
 
 export class LevelsScreen extends Component {
     constructor(props) {
@@ -61,10 +63,7 @@ export class LevelsScreen extends Component {
                     }
                     renderSectionHeader={(props) => this.renderHeader(props)}
                 />
-                {this.props.isLoading && 
-                <View style={{elevation:2, zIndex: 900, flex:1, width: "100%", height: "100%", position: 'absolute', alignItems: "center", justifyContent: "center", backgroundColor:"#00000077"}}>
-                    <Spinner color="red" />
-                </View>}
+                {this.props.isLoading && <OverflowLoader />}
             </View>
         )
     }
@@ -72,12 +71,12 @@ export class LevelsScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 10,
         flex: 1
     }, 
     listTitle: {
-        padding: 10,
-        fontSize: 24,
+        padding: Padding.MD,
+        paddingBottom: Padding.SM,
+        fontSize: 20,
         fontWeight: "bold"
     }
 });

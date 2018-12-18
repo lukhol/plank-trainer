@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Image, FlatList, Animated, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { Body, Card, Button, H2 } from 'native-base';
+import { View, Animated, TouchableOpacity, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
+import { Card, Button } from 'native-base';
 import * as Utils from '../utils';
+import H4 from '../components/H4';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { LevelType } from '../common/constants';
+import { LevelType, IconSize } from '../common/constants';
 import Colors from '../common/colors';
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -26,43 +27,36 @@ export default class LevelItem extends Component {
     
     render() {
         return (
-            <Card style={styles.card}>
-                <View style={styles.outerContainer}>
+            <TouchableWithoutFeedback 
+                onPress={() => this.props.onPress(this.props.item.id)}
+            >
+                <Card style={styles.card}>
                     <View style={styles.leftContainer}>
                         <View style={styles.title}>
-                            <H2>{this.props.item.name}</H2>    
+                            <H4>{this.props.item.name}</H4>    
                         </View>
                         <View style={styles.timeContainer}>
-                            <Icon name="clock" size={30} color={Colors.PRIMARY_LIGHT} />
+                            <Icon name="clock" size={IconSize.SM} color={Colors.PRIMARY_LIGHT} />
                             <Text style={styles.description}>
                                 {Utils.sec2time(this.getLevelDuration())}
                             </Text>
                         </View>
                     </View>
                     <View style={styles.rightContainer}>
-                        <Button 
-                            block 
-                            success 
-                            style={{margin: 16}}
-                            onPress={() => this.props.onPress(this.props.item.id)}
-                       >
-                            <Text style={{color: "#fff"}}>
-                                Przeglądaj
-                            </Text>
-                        </Button>
+                        
                     </View>
-                </View>
-                {
-                    this.props.item.type === LevelType.CUSTOM &&  
-                    <AnimatedTouchable 
-                        onPress={() => this.props.onDelete(this.props.item.id)}
-                        style={{position: 'absolute', top: 0, right: 0, height: 35, width: 35, alignItems:"center", justifyContent: "center"}}>
-                        <View>
-                            <Icon name="trash" size={20} color={Colors.DANGER} />
-                        </View>
-                    </AnimatedTouchable>
-                }
-            </Card>
+                    {
+                        this.props.item.type === LevelType.CUSTOM &&  
+                        <AnimatedTouchable 
+                            onPress={() => this.props.onDelete(this.props.item.id)}
+                            style={styles.trashTouchable}>
+                            <View>
+                                <Icon name="trash" size={20} color={Colors.DANGER} />
+                            </View>
+                        </AnimatedTouchable>
+                    }
+                </Card>
+            </TouchableWithoutFeedback>
         )
     }
 }
@@ -77,22 +71,28 @@ const styles = StyleSheet.create({
         padding: 6
     },
     title: {
-        padding: 10
+        padding: 6
     },
     timeContainer: {
-        padding: 10,
-        alignItems: "center"
-    },
-    outerContainer: {
-        flex: 1,
-        flexDirection: "row"
+        padding: 6,
+        alignItems: "center",
+        flexDirection: "row",
     },
     leftContainer: {
-
+        flex: 3,
     },
     rightContainer: {
-        flex:1,
+        flex: 2,
         alignItems: "center",
+        justifyContent: "center"
+    },
+    trashTouchable: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        height: 35,
+        width: 35, 
+        alignItems:"center",
         justifyContent: "center"
     }
 });

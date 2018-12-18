@@ -6,11 +6,16 @@ import { Button, Toast, Spinner } from 'native-base';
 import CustomizeTrainingItem from '../../components/CustomizeTrainingItem';
 import * as LevelsActions from '../../actions/LevelsActions';
 import { sec2time } from '../../utils'
+import { Padding } from '../../common/constants';
+import Colors from '../../common/colors';
+import H3 from '../../components/H3';
+import OverflowLoader from '../../components/OverflowLoader';
 
 export class CustomTrainingScreen extends Component {
     constructor(props) {
         super(props);
         this.saveTraining = this.saveTraining.bind(this);
+        this.getOveralTime = this.getOveralTime.bind(this);
         this.increaseDuration = this.increaseDuration.bind(this);
         this.decreaseDuration = this.decreaseDuration.bind(this);
         const planks = [...this.props.planks].map(item => {return {...item, duration: 0}});
@@ -84,14 +89,31 @@ export class CustomTrainingScreen extends Component {
         });
     }
 
+    getOveralTime() {
+        return sec2time(this.state.planks.reduce((sum, item, index) => {
+            if(index === 1) {
+                return sum.duration;
+            }
+
+            return sum + item.duration;
+        }));
+    }
+
     render() {
         return (
             <View style={globalStyles.container}>
-                <TextInput 
-                    style={{backgroundColor: "#fff", margin: 16}}
-                    placeholder="Level name..."
-                    onChangeText={name => this.setState({name})}
-                    value={this.state.name}/>
+                <View style={{backgroundColor: Colors.PRIMARY_LIGHT}}>
+                    <TextInput 
+                        style={{borderBottomWidth: 1, fontWeight: "bold", padding: Padding.SM, borderColor: "white", margin: Padding.MD, marginBottom: 0, ...globalStyles.textButton}}
+                        placeholder="Level name..."
+                        onChangeText={name => this.setState({name})}
+                        value={this.state.name}/>
+                    <Text style={{margin: Padding.MD, padding: Padding.SM, marginTop: 0}}>
+                        <H3 style={{color: "#eee"}}>
+                            Overal time: {this.getOveralTime()}
+                        </H3>
+                    </Text>
+                </View>
                 <FlatList 
                     style={{flex:1}} 
                     data={this.state.planks}
@@ -109,19 +131,10 @@ export class CustomTrainingScreen extends Component {
                     onPress={this.saveTraining}
                 >
                     <Text style={globalStyles.textButton}>
-                        Save ({sec2time(this.state.planks.reduce((sum, item, index) => {
-                            if(index === 1) {
-                                return sum.duration;
-                            }
-
-                            return sum + item.duration;
-                        }))})
+                        Save ({this.getOveralTime()})
                     </Text>
                 </Button>
-                {this.props.isLoading && 
-                <View style={{elevation:2, zIndex: 900, flex:1, width: "100%", height: "100%", position: 'absolute', alignItems: "center", justifyContent: "center", backgroundColor:"#00000077"}}>
-                    <Spinner color="red" />
-                </View>}
+                {this.props.isLoading && <OverflowLoader />}
             </View>
         )
     }

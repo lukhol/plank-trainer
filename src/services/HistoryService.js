@@ -16,7 +16,7 @@ export async function getAllTrainings() {
     }
 }
 
-export async function saveTrining(training) {
+export async function saveTraining(training) {
     training = {
         ...training,
         datetime: new Date().toISOString()

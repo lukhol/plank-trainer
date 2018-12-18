@@ -12,7 +12,6 @@ const initialState = {
 
 export const save = (settings) => async dispatch => {
     dispatch({type: Actions.SAVE_SETTINGS_START});
-    console.log({settings});
     try {
         await AsyncStorage.setItem(key, JSON.stringify(settings));
         dispatch({type: Actions.SAVE_SETTINGS_END, payload: settings});
