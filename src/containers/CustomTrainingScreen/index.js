@@ -1,31 +1,45 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, FlatList } from 'react-native';
+import { View, Text, TextInput, FlatList } from 'react-native';
 import globalStyles from '../../styles';
 import { connect } from 'react-redux';
 import { Button, Toast, Spinner } from 'native-base';
 import CustomizeTrainingItem from '../../components/CustomizeTrainingItem';
+import PickableTrainingItem from '../../components/PickableTrainingItem';
 import * as LevelsActions from '../../actions/LevelsActions';
 import { sec2time } from '../../utils'
 import { Padding } from '../../common/constants';
 import Colors from '../../common/colors';
 import H3 from '../../components/H3';
+import Modal from 'react-native-modalbox';
 import OverflowLoader from '../../components/OverflowLoader';
+import uuid from 'uuid/v4'
 
 export class CustomTrainingScreen extends Component {
     constructor(props) {
         super(props);
         this.saveTraining = this.saveTraining.bind(this);
         this.getOveralTime = this.getOveralTime.bind(this);
+        this.onItemPressed = this.onItemPressed.bind(this);
         this.increaseDuration = this.increaseDuration.bind(this);
         this.decreaseDuration = this.decreaseDuration.bind(this);
-        const planks = [...this.props.planks].map(item => {return {...item, duration: 0}});
+        this.planks = [...this.props.planks].map(item => {return {...item, duration: 0}});
+        
         this.state = {
             name: '',
-            planks: planks
+            planks: [],
+            modalVisible: false
         };
     }
 
     saveTraining() {
+
+        this.refs.modal1.open();
+        this.setState({
+            modalVisible: !this.state.modalVisible
+        });
+
+        return;
+
         let planksForLevel = this.state.planks.filter(item => item.duration > 0);
         
         if(this.state.name === '') {
@@ -61,6 +75,17 @@ export class CustomTrainingScreen extends Component {
         });
     }
 
+    onItemPressed(id) {
+        const choosenPlank = {...this.planks.filter(item => item.id === id)[0]};
+        if(choosenPlank) {
+            choosenPlank.duration = 0;
+            this.setState({
+                planks: [...this.state.planks, choosenPlank]
+            });
+            this.refs.modal1.close();
+        }
+    }
+
     increaseDuration(id) {
         this.setState({
             planks: this.state.planks.map(i => {
@@ -90,6 +115,10 @@ export class CustomTrainingScreen extends Component {
     }
 
     getOveralTime() {
+        if(this.state.planks.length === 0) {
+            return sec2time(0);
+        }
+
         return sec2time(this.state.planks.reduce((sum, item, index) => {
             if(index === 1) {
                 return sum.duration;
@@ -125,7 +154,7 @@ export class CustomTrainingScreen extends Component {
                         />
                     } />
                 <Button 
-                    style={{height: 40,  margin: 6}}
+                    style={{height: 40,  margin: 6, elevation: 0}}
                     full
                     success
                     onPress={this.saveTraining}
@@ -135,6 +164,33 @@ export class CustomTrainingScreen extends Component {
                     </Text>
                 </Button>
                 {this.props.isLoading && <OverflowLoader />}
+                <Modal 
+                    ref={'modal1'}
+                    style={{
+                        justifyContent: 'center',
+                        borderRadius: 3,
+                        shadowRadius: 3,
+                        width: "80%",
+                        height: "90%",
+                        zIndex: 500,
+                        elevation: 10
+                    }}
+                    swipeToClose={false}
+                    position="center"
+
+                >
+                    <View style={{flex: 1, borderColor: "red", borderWidth: 1}}>
+                        <FlatList 
+                            style={{flex:1}} 
+                            data={this.planks}
+                            renderItem={(props) => 
+                                <PickableTrainingItem 
+                                    {...props} 
+                                    onPress={this.onItemPressed}
+                                />
+                        } />
+                    </View>
+                </Modal>
             </View>
         )
     }
