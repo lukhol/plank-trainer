@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, FlatList } from 'react-native';
+import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
 import globalStyles from '../../styles';
 import { connect } from 'react-redux';
-import { Button, Toast, Spinner, Fab } from 'native-base';
-import CustomizeTrainingItem from '../../components/CustomizeTrainingItem';
-import PickableTrainingItem from '../../components/PickableTrainingItem';
+import { Button, Toast, Fab } from 'native-base';
+import { CustomizeTrainingItem, PickableTrainingItem, OverflowLoader, H3 } from '../../components';
 import * as LevelsActions from '../../actions/LevelsActions';
 import { sec2time } from '../../utils'
 import { Padding } from '../../common/constants';
 import Colors from '../../common/colors';
-import H3 from '../../components/H3';
 import Modal from 'react-native-modalbox';
-import OverflowLoader from '../../components/OverflowLoader';
 import uuid from 'uuid/v4';
 import SortableListView from 'react-native-sortable-listview';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -142,13 +139,13 @@ export class CustomTrainingScreen extends Component {
     render() {
         return (
             <View style={globalStyles.container}>
-                <View style={{backgroundColor: Colors.PRIMARY_LIGHT}}>
+                <View style={styles.infoContainer}>
                     <TextInput 
-                        style={{borderBottomWidth: 1, fontWeight: "bold", padding: Padding.SM, borderColor: "white", margin: Padding.MD, marginBottom: 0, ...globalStyles.textButton}}
+                        style={styles.textInput}
                         placeholder="Level name..."
                         onChangeText={name => this.setState({name})}
                         value={this.state.name}/>
-                    <Text style={{margin: Padding.MD, padding: Padding.SM, marginTop: 0}}>
+                    <Text style={styles.overalTime}>
                         <H3 style={{color: "#eee"}}>
                             Overal time: {this.getOveralTime()}
                         </H3>
@@ -173,18 +170,9 @@ export class CustomTrainingScreen extends Component {
                 {this.props.isLoading && <OverflowLoader />}
                 <Modal 
                     ref={'modal1'}
-                    style={{
-                        justifyContent: 'center',
-                        borderRadius: 3,
-                        shadowRadius: 3,
-                        width: "80%",
-                        height: "90%",
-                        zIndex: 500,
-                        elevation: 10
-                    }}
+                    style={styles.modal}
                     swipeToClose={false}
                     position="center"
-
                 >
                     <View style={{flex: 1}}>
                         <FlatList 
@@ -217,6 +205,35 @@ export class CustomTrainingScreen extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    modal: {
+        justifyContent: 'center',
+        borderRadius: 3,
+        shadowRadius: 3,
+        width: "80%",
+        height: "90%",
+        zIndex: 500,
+        elevation: 10
+    },
+    textInput: {
+        borderBottomWidth: 1,
+        fontWeight: "bold", 
+        padding: Padding.SM, 
+        borderColor: "white", 
+        margin: Padding.MD, 
+        marginBottom: 0, 
+        ...globalStyles.textButton
+    },
+    overalTime: {
+        margin: Padding.MD, 
+        padding: Padding.SM, 
+        marginTop: 0
+    },
+    infoContainer: {
+        backgroundColor: Colors.PRIMARY_LIGHT
+    }
+});
 
 const mapStateToProps = state => {
     return {

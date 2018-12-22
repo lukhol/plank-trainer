@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Animated, TouchableOpacity, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
-import { Card, Button } from 'native-base';
+import { Card } from 'native-base';
 import * as Utils from '../utils';
 import H4 from '../components/H4';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -20,7 +20,6 @@ export default class LevelItem extends Component {
                 .map(i => i.duration)
                 .reduce((total, item) => total + item);
         } catch (e) {
-            console.log(e);
             return -5;
         }
     }

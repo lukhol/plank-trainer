@@ -38,15 +38,13 @@ export class StartTrainingScreen extends Component {
     }
 }
 
-function preparePlanks(state) {
-    let level = state.levels.levels.find(item => item.id === state.levels.choosenLevelId);
-    if(!level) {
+function preparePlanks(allPlanks, levels, customLevels, choosenLevelId) {
+    let levelToDisplay = levels.find(item => item.id === choosenLevelId);
+    if(!levelToDisplay) {
         //If not found in default search in custom
-        level = state.levels.customLevels.find(item => item.id === state.levels.choosenLevelId);
+        levelToDisplay = customLevels.find(item => item.id === choosenLevelId);
     }
-    console.log({level});
-    planks = level.planks;
-    const allPlanks = state.planks;
+    let planks = levelToDisplay.planks;
     const propsPlanks = [];
     for(let i = 0 ; i < planks.length ; i ++) {
         const foundItem = allPlanks.find(item => item.id === planks[i].imageName);
@@ -61,7 +59,7 @@ function preparePlanks(state) {
 
 const mapStateToProps = state => {
     return  {
-        planks: preparePlanks(state),
+        planks: preparePlanks(state.planks, state.levels.levels, state.levels.customLevels, state.levels.choosenLevelId),
     }
 }
 

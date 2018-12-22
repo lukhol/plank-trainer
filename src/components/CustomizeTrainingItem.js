@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Image, FlatList, Text, TouchableHighlight, TouchableOpacity, StyleSheet } from 'react-native';
-import { Card, H2 } from 'native-base';
+import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Card } from 'native-base';
 import H4 from '../components/H4';
 import images from '../images';
 import * as Utils from '../utils';

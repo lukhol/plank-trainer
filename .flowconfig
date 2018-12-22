@@ -56,6 +56,8 @@ module.file_ext=.jsx
 module.file_ext=.json
 module.file_ext=.native.js
 
+module.name_mapper='@components'->'<PROJECT_ROOT>/src/components'
+
 suppress_type=$FlowIssue
 suppress_type=$FlowFixMe
 suppress_type=$FlowFixMeProps

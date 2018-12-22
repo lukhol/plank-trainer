@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { View, FlatList, SectionList, Text, StyleSheet } from 'react-native';
-import { Spinner } from 'native-base';
-import globalStyles from '../../styles';
+import { View, SectionList, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import LevelItem from '../../components/LevelItem';
 import * as LevelsActions from '../../actions/LevelsActions';
 import { Padding } from '../../common/constants';
-import OverflowLoader from '../../components/OverflowLoader';
+import { OverflowLoader, LevelItem } from '../../components';
 
 export class LevelsScreen extends Component {
     constructor(props) {

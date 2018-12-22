@@ -25,7 +25,7 @@ export class HistoryScreen extends Component {
 
     componentDidMount() {
         this.setState({
-            data: this.getDurationsInRage()
+            data: this.getDurationsInRage(this.props.historyList, this.state.startOfWeek, this.state.endOfWeek)
         });
     }
 
@@ -33,7 +33,7 @@ export class HistoryScreen extends Component {
         this.setState({
             startOfWeek: this.state.startOfWeek.add(7, 'days'),
             endOfWeek: this.state.endOfWeek.add(7, 'days'),
-            data: this.getDurationsInRage()
+            data: this.getDurationsInRage(this.props.historyList, this.state.startOfWeek, this.state.endOfWeek)
         });
     }
 
@@ -41,17 +41,17 @@ export class HistoryScreen extends Component {
         this.setState({
             startOfWeek: this.state.startOfWeek.subtract(7, 'days'),
             endOfWeek: this.state.endOfWeek.subtract(7, 'days'),
-            data: this.getDurationsInRage()
+            data: this.getDurationsInRage(this.props.historyList, this.state.startOfWeek, this.state.endOfWeek)
         });
     }
 
-    isInRange(isoDateString) {
+    isInRange(isoDateString, startDate, endDate) {
         const date = moment(isoDateString);
-        return date.isAfter(this.state.startOfWeek) && date.isBefore(this.state.endOfWeek);
+        return date.isAfter(startDate) && date.isBefore(endDate);
     }
 
-    getDurationsInRage() {
-        const itemsInDuration = this.props.historyList.filter(item => this.isInRange(item.datetime));
+    getDurationsInRage(historyList, startDate, endDate) {
+        const itemsInDuration = historyList.filter(item => this.isInRange(item.datetime, startDate, endDate));
         let days = [0, 1, 2, 3, 4, 5, 6];
         days = days.map(item => {
             let duration = 0;

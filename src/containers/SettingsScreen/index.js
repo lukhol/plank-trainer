@@ -3,13 +3,11 @@ import { View, Text, CheckBox, Switch, AppState, StyleSheet } from 'react-native
 import globalStyles from '../../styles';
 import { connect } from 'react-redux';
 import * as SettingsActions from '../../actions/SettingsActions';
-import SettingsPicker from '../../components/SettingsPicker';
 import { ListItem, Left, Body, Right } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { IconSize, Padding } from '../../common/constants';
 import Colors from '../../common/colors';
-import H4 from '../../components/H4';
-import H5 from '../../components/H5';
+import { H4, H5, SettingsPicker } from '../../components';
 
 export class SettingsScreen extends Component {
     constructor(props) {
