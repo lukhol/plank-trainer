@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, FlatList } from 'react-native';
 import globalStyles from '../../styles';
 import { connect } from 'react-redux';
-import { Button, Toast, Spinner } from 'native-base';
+import { Button, Toast, Spinner, Fab } from 'native-base';
 import CustomizeTrainingItem from '../../components/CustomizeTrainingItem';
 import PickableTrainingItem from '../../components/PickableTrainingItem';
 import * as LevelsActions from '../../actions/LevelsActions';
@@ -12,12 +12,15 @@ import Colors from '../../common/colors';
 import H3 from '../../components/H3';
 import Modal from 'react-native-modalbox';
 import OverflowLoader from '../../components/OverflowLoader';
-import uuid from 'uuid/v4'
+import uuid from 'uuid/v4';
+import SortableListView from 'react-native-sortable-listview';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export class CustomTrainingScreen extends Component {
     constructor(props) {
         super(props);
         this.saveTraining = this.saveTraining.bind(this);
+        this.openAddModal = this.openAddModal.bind(this);
         this.getOveralTime = this.getOveralTime.bind(this);
         this.onItemPressed = this.onItemPressed.bind(this);
         this.increaseDuration = this.increaseDuration.bind(this);
@@ -27,39 +30,47 @@ export class CustomTrainingScreen extends Component {
         this.state = {
             name: '',
             planks: [],
-            modalVisible: false
+            modalVisible: false,
+            menuActive: false
         };
+
+        this.index = 0;
     }
 
-    saveTraining() {
-
+    openAddModal() {
         this.refs.modal1.open();
         this.setState({
             modalVisible: !this.state.modalVisible
         });
+    }
 
-        return;
+    saveTraining() {
+        const planksForLevel = this.state.planks.filter(item => item.duration > 0);
+        const hasZeroDuration = this.state.planks.every((element, index, array) => element.duration === 0); 
+        let message = '';
 
-        let planksForLevel = this.state.planks.filter(item => item.duration > 0);
-        
         if(this.state.name === '') {
+            message += 'Name cannot be empty. \n';
+        }
+
+        if(planksForLevel === undefined || planksForLevel.length === 0) {
+            message += 'Choose at least one item. \n';
+        }
+
+        if(hasZeroDuration) {
+            message += 'Each plank has to be longer than 0 seconds.';
+        }
+
+        if(message !== '') {
             Toast.show({
-                text: 'Name cannot be empty.',
+                text: message,
                 buttonText: 'Ok',
-                type: 'warning'
+                type: 'warning',
+                duration: 6000
             });
             return;
         }
-
-        if(planksForLevel === undefined) {
-            Toast.show({
-                text: 'Choose at least one item',
-                buttonText: 'Ok',
-                type: 'warning'
-            });
-            return;
-        }
-
+        
         let customLevel = {
             name: this.state.name,
             type: 'CUSTOM',
@@ -69,16 +80,22 @@ export class CustomTrainingScreen extends Component {
         this.props.insert(customLevel);
         this.props.navigation.navigate('LevelsScreen');
 
-        alert('Level added successfylly');
         this.setState({
-            planks: [...this.props.planks].map(item => {return {...item, duration: 0}})
+            name: '',
+            planks: [],
+            modalVisible: false,
+            menuActive: false
         });
+
+        alert('Level added successfylly');
     }
 
     onItemPressed(id) {
         const choosenPlank = {...this.planks.filter(item => item.id === id)[0]};
         if(choosenPlank) {
             choosenPlank.duration = 0;
+            choosenPlank.imageName = choosenPlank.id;
+            choosenPlank.id = uuid();
             this.setState({
                 planks: [...this.state.planks, choosenPlank]
             });
@@ -119,13 +136,7 @@ export class CustomTrainingScreen extends Component {
             return sec2time(0);
         }
 
-        return sec2time(this.state.planks.reduce((sum, item, index) => {
-            if(index === 1) {
-                return sum.duration;
-            }
-
-            return sum + item.duration;
-        }));
+        return sec2time(this.state.planks.map(i => i.duration).reduceRight((sum, item) => sum + item));
     }
 
     render() {
@@ -143,26 +154,22 @@ export class CustomTrainingScreen extends Component {
                         </H3>
                     </Text>
                 </View>
-                <FlatList 
+                <SortableListView 
                     style={{flex:1}} 
                     data={this.state.planks}
-                    renderItem={(props) => 
+                    renderRow={(props) => 
                         <CustomizeTrainingItem 
                             {...props} 
-                            increase={this.increaseDuration}
+                            onPress={this.onItemPressed}
                             decrease={this.decreaseDuration}
-                        />
-                    } />
-                <Button 
-                    style={{height: 40,  margin: 6, elevation: 0}}
-                    full
-                    success
-                    onPress={this.saveTraining}
-                >
-                    <Text style={globalStyles.textButton}>
-                        Save ({this.getOveralTime()})
-                    </Text>
-                </Button>
+                            increase={this.increaseDuration}
+                        />}
+                    onRowMoved={e => {
+                        const testPlanks = [...this.state.planks];
+                        testPlanks.splice(e.to, 0, testPlanks.splice(e.from, 1)[0]);
+                        this.setState({planks: testPlanks});
+                    }}
+                />
                 {this.props.isLoading && <OverflowLoader />}
                 <Modal 
                     ref={'modal1'}
@@ -179,7 +186,7 @@ export class CustomTrainingScreen extends Component {
                     position="center"
 
                 >
-                    <View style={{flex: 1, borderColor: "red", borderWidth: 1}}>
+                    <View style={{flex: 1}}>
                         <FlatList 
                             style={{flex:1}} 
                             data={this.planks}
@@ -191,6 +198,21 @@ export class CustomTrainingScreen extends Component {
                         } />
                     </View>
                 </Modal>
+                <Fab
+                    active={this.state.menuActive}
+                    direction="up"
+                    containerStyle={{ }}
+                    style={{ backgroundColor: '#5067FF' }}
+                    position="bottomRight"
+                    onPress={() => this.setState({ menuActive: !this.state.menuActive })}>
+                        <Icon name="cog" />
+                        <Button style={{ backgroundColor: '#34A34F' }} onPress={this.openAddModal}>
+                            <Icon name="plus" size={20} color="#fff" />
+                        </Button>
+                        <Button style={{ backgroundColor: '#3B5998' }} onPress={this.saveTraining}>
+                            <Icon name="save" size={20} color="#fff" />
+                        </Button>
+                </Fab>
             </View>
         )
     }

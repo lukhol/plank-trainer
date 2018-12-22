@@ -7,79 +7,93 @@ const initialState = {
     customLevels: [],
     levels: [
         {
-            id: 1,
+            id: "1",
             name: "Level 1",
             type: LevelType.DEFAULT,
             planks: [
                 {
                     id: "full",
-                    duration: 20
+                    duration: 20,
+                    imageName: 'full'
                 },
                 {
                     id: "elbow",
-                    duration: 20
+                    duration: 20,
+                    imageName: 'elbow'
                 },
                 {
                     id: "full",
-                    duration: 20
+                    duration: 20,
+                    imageName: 'full'
                 },
                 {
                     id: "elbow",
-                    duration: 20
+                    duration: 20,
+                    imageName: 'elbow'
                 }
             ]
         },
         {
-            id: 2,
+            id: "2",
             name: "Level 2",
             type: LevelType.DEFAULT,
             planks: [
                 {
                     id: "full",
-                    duration: 30
+                    duration: 30,
+                    imageName: 'full'
                 },
                 {
                     id: "elbow",
-                    duration: 25
+                    duration: 25,
+                    imageName: 'elbow'
                 },
                 {
                     id: "full",
-                    duration: 30
+                    duration: 30,
+                    imageName: 'full'
                 },
                 {
                     id: "elbow",
-                    duration: 25
+                    duration: 25,
+                    imageName: 'elbow'
                 },
                 {
                     id: "reverse",
-                    duration: 40
+                    duration: 40,
+                    imageName: 'reverse'
                 }
             ]
         },
         {
-            id: 3,
+            id: "3",
             name: "Level3",
             type: LevelType.DEFAULT,
             planks: [
                 {
                     id: "full",
-                    duration: 45
+                    duration: 45,
+                    imageName: 'full'
                 },
                 {
                     id: "elbow",
-                    duration: 60
+                    duration: 60,
+                    imageName: 'elbow'
                 },
                 {
                     id: "full",
-                    duration: 45
+                    duration: 45,
+                    imageName: 'full'
                 },
                 {
                     id: "elbow",
-                    duration: 60
+                    duration: 60,
+                    imageName: 'elbow'
                 },
                 {   
                     id: "reverse",
-                    duration: 45
+                    duration: 45,
+                    imageName: 'reverse'
                 }
             ]
         }

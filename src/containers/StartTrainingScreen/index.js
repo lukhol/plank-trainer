@@ -8,6 +8,7 @@ import { Button } from 'native-base';
 
 export class StartTrainingScreen extends Component {
     render() {
+        console.log(this.props.planks);
         return (
             <View style={globalStyles.container}>
                 <FlatList
@@ -43,11 +44,12 @@ function preparePlanks(state) {
         //If not found in default search in custom
         level = state.levels.customLevels.find(item => item.id === state.levels.choosenLevelId);
     }
+    console.log({level});
     planks = level.planks;
     const allPlanks = state.planks;
     const propsPlanks = [];
     for(let i = 0 ; i < planks.length ; i ++) {
-        const foundItem = allPlanks.find(item => item.id === planks[i].id);
+        const foundItem = allPlanks.find(item => item.id === planks[i].imageName);
         const newItem = {...foundItem, duration: planks[i].duration}
         if(foundItem) {
             propsPlanks.push(newItem);

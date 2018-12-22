@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Image, FlatList, Text, TouchableHighlight, TouchableOpacity, StyleSheet } from 'react-native';
 import { Card, H2 } from 'native-base';
 import H4 from '../components/H4';
 import images from '../images';
@@ -11,27 +11,30 @@ import { IconSize } from '../common/constants'
 export default class CustomizeTrainingItem extends Component {    
     render() {
         return (
-            <Card style={styles.card}>
-                <View style={styles.leftContainer}>
-                    <H4>{this.props.item.name}</H4>    
-                    <View style={styles.timeContainer}>
-                        <TouchableOpacity onPress={() => this.props.decrease(this.props.item.id)}>
-                            <Icon name="minus" size={IconSize.MD} color={Colors.WARNING} />
-                        </TouchableOpacity>
-                        <Text style={styles.description}>
-                            {Utils.sec2time(this.props.item.duration)}
-                        </Text>
-                        <TouchableOpacity onPress={() => this.props.increase(this.props.item.id)}>
-                            <Icon name="plus" size={IconSize.MD} color={Colors.WARNING} />
-                        </TouchableOpacity>
+            <TouchableOpacity
+                {...this.props.sortHandlers}>
+                <Card style={styles.card}>
+                    <View style={styles.leftContainer}>
+                        <H4>{this.props.name}</H4>    
+                        <View style={styles.timeContainer}>
+                            <TouchableOpacity onPress={() => this.props.decrease(this.props.id)}>
+                                <Icon name="minus" size={IconSize.MD} color={Colors.WARNING} />
+                            </TouchableOpacity>
+                            <Text style={styles.description}>
+                                {Utils.sec2time(this.props.duration)}
+                            </Text>
+                            <TouchableOpacity onPress={() => this.props.increase(this.props.id)}>
+                                <Icon name="plus" size={IconSize.MD} color={Colors.WARNING} />
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-                <View style={styles.rightContainer}>
-                    <Image 
-                        source={images.getById(this.props.item.id)}
-                    />
-                </View>
-            </Card>
+                    <View style={styles.rightContainer}>
+                        <Image 
+                            source={images.getById(this.props.imageName)}
+                        />
+                    </View>
+                </Card>
+            </TouchableOpacity>
         )
     }
 }
