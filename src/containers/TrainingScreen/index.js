@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, Image, Text, FlatList, StyleSheet, ActivityIndicator, H2 } from 'react-native';
+import { View, Image, Text, FlatList, StyleSheet } from 'react-native';
 import globalStyles from '../../styles';
 import { connect } from 'react-redux';
 import images from '../../images';
-import TrainingItem from '../../components/TrainingItem';
-import { Button } from 'native-base';
+import Tts from 'react-native-tts';
 import * as HistoryActions from '../../actions/HistoryActions';
 
 export class TrainingScreen extends Component {
@@ -14,6 +13,8 @@ export class TrainingScreen extends Component {
         this.getCenter = this.getCenter.bind(this);
         this.getBottom = this.getBottom.bind(this);
         this.secondElapsed = this.secondElapsed.bind(this);
+        this.speachForWait = this.speachForWait.bind(this);
+        this.speachForTrainingEnd = this.speachForTrainingEnd.bind(this);
         this.mounted;
 
         this.state = {
@@ -40,7 +41,31 @@ export class TrainingScreen extends Component {
 
     componentWillUnmount() {
         this.mounted = false;
-        clearInterval(this.secondElapsed, 1000);
+        clearInterval(this.secondElapsed);
+    }
+
+    speachForWait(waitTimeLeft) {
+        if(this.props.sound) {
+            if(waitTimeLeft < 5 && waitTimeLeft !== 0) {
+                if(waitTimeLeft - 1 === 0) {
+                    Tts.speak('Start');
+                } else {
+                    Tts.speak(`${waitTimeLeft-1}`);
+                }
+            }
+        }
+    }
+
+    speachForTrainingEnd(timeLeft) {
+        if(this.props.sound) {
+            if(timeLeft < 10 && timeLeft !== 0) {
+                if(timeLeft - 1 === 0) {
+                    Tts.speak('Odpoczynek');
+                } else {
+                    Tts.speak(`${timeLeft-1}`);
+                }
+            }
+        }
     }
 
     secondElapsed() {
@@ -49,6 +74,8 @@ export class TrainingScreen extends Component {
         if(finish || !this.mounted) {
             return;
         }
+
+        this.speachForWait(waitTimeLeft)
 
         if(isWaiting && waitTimeLeft > 0) {
             this.setState({
@@ -65,6 +92,8 @@ export class TrainingScreen extends Component {
         }
 
         if(!isWaiting && timeLeft > 0) {
+            this.speachForTrainingEnd(timeLeft)
+
             this.setState({
                 timeLeft: timeLeft - 1,
                 first: false
@@ -170,7 +199,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         items: state.training.items,
-        defaultWaitTime: state.settings.defaultWaitTime
+        defaultWaitTime: state.settings.defaultWaitTime,
+        sound: state.settings.sound
     }
 }
 

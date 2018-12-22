@@ -5,6 +5,7 @@ import Navigator from './Navigator';
 import RNLanguages from 'react-native-languages';
 import { initI18n } from './translations/i18n';
 import { Root } from "native-base";
+import Tts from 'react-native-tts';
 
 export default class App extends Component {
     componentDidMount() {
