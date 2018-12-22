@@ -3,7 +3,7 @@ import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
 import globalStyles from '../../styles';
 import { connect } from 'react-redux';
 import { Button, Toast, Fab } from 'native-base';
-import { CustomizeTrainingItem, PickableTrainingItem, OverflowLoader, H3 } from '../../components';
+import { CustomizeTrainingItem, PickableTrainingItem, OverflowLoader, H3, ValidateableInput } from '../../components';
 import * as LevelsActions from '../../actions/LevelsActions';
 import { sec2time } from '../../utils'
 import { Padding } from '../../common/constants';
@@ -11,7 +11,7 @@ import Colors from '../../common/colors';
 import Modal from 'react-native-modalbox';
 import uuid from 'uuid/v4';
 import SortableListView from 'react-native-sortable-listview';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome5';
 
 export class CustomTrainingScreen extends Component {
     constructor(props) {
@@ -28,7 +28,8 @@ export class CustomTrainingScreen extends Component {
             name: '',
             planks: [],
             modalVisible: false,
-            menuActive: false
+            menuActive: false,
+            isValid: false
         };
 
         this.index = 0;
@@ -81,7 +82,8 @@ export class CustomTrainingScreen extends Component {
             name: '',
             planks: [],
             modalVisible: false,
-            menuActive: false
+            menuActive: false,
+            isValid: false
         });
 
         alert('Level added successfylly');
@@ -140,11 +142,19 @@ export class CustomTrainingScreen extends Component {
         return (
             <View style={globalStyles.container}>
                 <View style={styles.infoContainer}>
-                    <TextInput 
+                    {/* <TextInput 
                         style={styles.textInput}
                         placeholder="Level name..."
                         onChangeText={name => this.setState({name})}
-                        value={this.state.name}/>
+                        value={this.state.name}/> */}
+                    <ValidateableInput
+                        placeholder="Level name..."
+                        onChangeText={name => this.setState({name, isValid: name === '' ? false : true})}
+                        value={this.state.name}
+                        style={styles.textInput}
+                        isValid={this.state.isValid}
+                        errorMessage='Nazwa jest wymagana'
+                    />
                     <Text style={styles.overalTime}>
                         <H3 style={{color: "#eee"}}>
                             Overal time: {this.getOveralTime()}
@@ -193,12 +203,12 @@ export class CustomTrainingScreen extends Component {
                     style={{ backgroundColor: '#5067FF' }}
                     position="bottomRight"
                     onPress={() => this.setState({ menuActive: !this.state.menuActive })}>
-                        <Icon name="cog" />
+                        <IconFontAwesome name="cog" />
                         <Button style={{ backgroundColor: '#34A34F' }} onPress={this.openAddModal}>
-                            <Icon name="plus" size={20} color="#fff" />
+                            <IconFontAwesome name="plus" size={20} color="#fff" />
                         </Button>
                         <Button style={{ backgroundColor: '#3B5998' }} onPress={this.saveTraining}>
-                            <Icon name="save" size={20} color="#fff" />
+                            <IconFontAwesome name="save" size={20} color="#fff" />
                         </Button>
                 </Fab>
             </View>

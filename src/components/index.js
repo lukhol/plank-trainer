@@ -7,6 +7,7 @@ import OverflowLoader from './OverflowLoader';
 import PickableTrainingItem from './PickableTrainingItem';
 import SettingsPicker from './SettingsPicker';
 import TrainingItem from './TrainingItem';
+import ValidateableInput from './ValidateableInput';
 
 export {
     CustomizeTrainingItem,
@@ -15,5 +16,6 @@ export {
     OverflowLoader,
     PickableTrainingItem,
     SettingsPicker,
-    TrainingItem
+    TrainingItem,
+    ValidateableInput
 };

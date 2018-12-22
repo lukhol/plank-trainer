@@ -1,5 +1,5 @@
 export const PRIMARY = "#7646ff";
-export const PRIMARY_LIGHT = "#9a77ff";
+export const PRIMARY_LIGHT = "#c2adff";
 export const SECONDARY = "#5129c4";
 export const PAGE_BACKGROUND = "#F5FCFF00";
 export const ITEM_BACKGROUND = "#ffffff";
