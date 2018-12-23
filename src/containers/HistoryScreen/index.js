@@ -52,14 +52,15 @@ export class HistoryScreen extends Component {
 
     getDurationsInRage(historyList, startDate, endDate) {
         const itemsInDuration = historyList.filter(item => this.isInRange(item.datetime, startDate, endDate));
-        let days = [0, 1, 2, 3, 4, 5, 6];
-        days = days.map(item => {
+        let days = [1, 2, 3, 4, 5, 6, 7];
+        days = days.map(day => {
             let duration = 0;
             for(let historyItem of itemsInDuration) {
-                if(moment(historyItem.datetime).day() === item) {
+                if(moment(historyItem.datetime).utc().isoWeekday() === day) {
                     duration += historyItem.items.map(i => i.duration).reduce((sum, item) => sum + item);
                 }
             }
+
             return duration;
         });
 

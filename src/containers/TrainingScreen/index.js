@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { View, Image, Text, FlatList, StyleSheet } from 'react-native';
 import globalStyles from '../../styles';
+import { Card } from 'native-base';
 import { connect } from 'react-redux';
 import images from '../../images';
 import Tts from 'react-native-tts';
 import * as HistoryActions from '../../actions/HistoryActions';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 export class TrainingScreen extends Component {
     constructor(props) {
@@ -23,8 +25,11 @@ export class TrainingScreen extends Component {
             timeLeft: 0,
             isWaiting: true,
             waitTimeLeft: this.props.defaultWaitTime, 
-            finish: false
+            finish: false,
+            entries: this.props.items
         };
+
+        this._renderItem = this._renderItem.bind(this);
     }
 
     componentDidMount() {
@@ -114,6 +119,7 @@ export class TrainingScreen extends Component {
                     items: this.props.items
                 });
             } else {
+                this.refs.carousel.snapToNext();
                 this.setState({
                     index: index+1,
                     timeLeft: this.props.items[index+1].duration,
@@ -137,13 +143,51 @@ export class TrainingScreen extends Component {
         return <Text style={globalStyles.title}>{content}</Text>;
     }
 
+    _renderItem({item, index}) {
+        return (
+            <Card>
+                <View>
+                    <Text style={{...globalStyles.title, textAlign: "center"}}>
+                        {item.name}
+                    </Text>
+                    <Image source={images.getById(item.id)}/>
+                </View>
+            </Card>
+        )
+    }
+
     getCenter() {
         return (
-            <View>
-                <Text style={{...globalStyles.title, textAlign: "center"}}>
-                    {this.props.items[this.state.index].name}
-                </Text>
-                <Image source={images.getById(this.props.items[this.state.index].id)}/>
+            <View style={{height: 300}}>
+                <Carousel
+                    layout={'stack'} 
+                    layoutCardOffset={`18`}
+                    ref={'carousel'}
+                    data={this.state.entries}
+                    renderItem={this._renderItem}
+                    sliderWidth={200}
+                    sliderHeight={200}
+                    itemHeight={200}
+                    itemWidth={200}
+                    lockScrollWhileSnapping={true}
+                />
+                <Pagination
+                    dotsLength={this.state.entries.length}
+                    activeDotIndex={this.state.index}
+                    containerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.75)' }}
+                    dotStyle={{
+                        width: 10,
+                        height: 10,
+                        borderRadius: 5,
+                        marginHorizontal: 8,
+                        backgroundColor: 'rgba(255, 255, 255, 0.92)'
+                    }}
+                    inactiveDotStyle={{
+                        // Define styles for inactive dots here
+                    }}
+                    inactiveDotOpacity={0.4}
+                    inactiveDotScale={0.6}
+                />
             </View>
         )
     }

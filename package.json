@@ -20,6 +20,7 @@
     "react-native-languages": "^3.0.1",
     "react-native-linear-gradient": "^2.5.3",
     "react-native-modalbox": "^1.6.0",
+    "react-native-snap-carousel": "^3.7.5",
     "react-native-sortable-listview": "^0.2.8",
     "react-native-svg": "^8.0.10",
     "react-native-tts": "^2.0.0",
