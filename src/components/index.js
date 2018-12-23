@@ -8,6 +8,7 @@ import PickableTrainingItem from './PickableTrainingItem';
 import SettingsPicker from './SettingsPicker';
 import TrainingItem from './TrainingItem';
 import ValidateableInput from './ValidateableInput';
+import StepProgressbar from './StepProgressbar';
 
 export {
     CustomizeTrainingItem,
@@ -17,5 +18,6 @@ export {
     PickableTrainingItem,
     SettingsPicker,
     TrainingItem,
-    ValidateableInput
+    ValidateableInput,
+    StepProgressbar
 };

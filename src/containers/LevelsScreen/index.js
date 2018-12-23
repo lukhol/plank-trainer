@@ -3,7 +3,8 @@ import { View, SectionList, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import * as LevelsActions from '../../actions/LevelsActions';
 import { Padding } from '../../common/constants';
-import { OverflowLoader, LevelItem } from '../../components';
+import { Card } from 'native-base';
+import { OverflowLoader, LevelItem, StepProgressbar } from '../../components';
 
 export class LevelsScreen extends Component {
     constructor(props) {
