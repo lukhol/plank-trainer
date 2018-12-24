@@ -24,7 +24,7 @@ class StepProgressbar extends Component {
 
         for(let i = 0 ; i < this.props.activeItemIndex; i++) {
             doneItems.push(
-                <View style={[styles.item, styles.itemDone]}>
+                <View style={[styles.item, styles.itemDone, this.props.doneDotStyle]}>
                     <Icon name='check' color='#fff' />
                 </View>  
             )
@@ -61,21 +61,24 @@ class StepProgressbar extends Component {
 
     computeSuccessBarWidth() {
         let activeItemIndex = this.props.activeItemIndex > this.props.itemsCount 
-            ? this.props.activeItemIndex : this.props.itemsCount;
+            ? this.props.itemsCount : this.props.activeItemIndex;
         
         if(this.props.activeItemIndex === this.props.itemsCount) {
             activeItemIndex = this.props.itemsCount - 1;
         }
 
+        if((this.props.activeItemIndex + 1 === this.props.itemsCount) ||
+            (this.props.activeItemIndex === this.props.itemsCount)) {
+            return '100%';
+        }
+
         const screenWidth = Dimensions.get('window').width;
-        const elementsSpace = (screenWidth*(activeItemIndex))/(this.props.itemsCount);
+        const elementsSpace = (screenWidth*activeItemIndex)/(this.props.itemsCount);
         return this.props.activeItemIndex === 0 ? 0 : elementsSpace + (32);
     }
 
     render() {
         const successBarWidth = this.computeSuccessBarWidth();
-        console.log(successBarWidth);
-        console.log(Dimensions.get('window').width);
 
         return (
             <View style={styles.container}>
@@ -91,14 +94,15 @@ class StepProgressbar extends Component {
 
 StepProgressbar.propTypes = {
     itemsCount: PropTypes.number,
-    activeItemIndex: PropTypes.number
+    activeItemIndex: PropTypes.number,
+    doneDotStyle: PropTypes.object
 };
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: "space-between",
-        margin: 6
+        margin: 15
     },
     item: {
         width: 30,
@@ -106,7 +110,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         backgroundColor: '#cecece',
         borderColor: '#989898',
-        borderWidth: 1,
+        borderWidth: 2,
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 10

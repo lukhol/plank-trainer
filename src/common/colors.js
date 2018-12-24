@@ -5,6 +5,8 @@ export const PAGE_BACKGROUND = "#F5FCFF00";
 export const ITEM_BACKGROUND = "#ffffff";
 export const DANGER = "#fc4e5e";
 export const WARNING = "#f7d054";
+export const SUCCESS = '#729B25';
+export const ARROW = '#fff';
 
 export default {
     PRIMARY,
@@ -13,5 +15,7 @@ export default {
     PAGE_BACKGROUND,
     ITEM_BACKGROUND,
     DANGER,
-    WARNING
+    WARNING,
+    SUCCESS,
+    ARROW
 };

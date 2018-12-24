@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View, Image, Text, FlatList, StyleSheet } from 'react-native';
+import React, { Component, Fragment } from 'react';
+import { View, Image, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import globalStyles from '../../styles';
 import { Card } from 'native-base';
 import { connect } from 'react-redux';
@@ -7,7 +7,9 @@ import images from '../../images';
 import Tts from 'react-native-tts';
 import { StepProgressbar } from '../../components';
 import * as HistoryActions from '../../actions/HistoryActions';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { IconSize, Padding } from '../../common/constants';
+import Colors from '../../common/colors';
 
 export class TrainingScreen extends Component {
     constructor(props) {
@@ -15,18 +17,22 @@ export class TrainingScreen extends Component {
         this.getProgress = this.getProgress.bind(this);
         this.getCenter = this.getCenter.bind(this);
         this.getBottom = this.getBottom.bind(this);
+        this.onPlayPressed = this.onPlayPressed.bind(this);
+        this.onPausePressed = this.onPausePressed.bind(this);
         this.secondElapsed = this.secondElapsed.bind(this);
         this.speachForWait = this.speachForWait.bind(this);
         this.speachForTrainingEnd = this.speachForTrainingEnd.bind(this);
         this.mounted;
 
         this.state = {
+            isRunning: false,
             first: true,
             index: 0,
             timeLeft: 0,
             isWaiting: true,
             waitTimeLeft: this.props.defaultWaitTime, 
             finish: false,
+            started: false
         };
     }
 
@@ -72,7 +78,11 @@ export class TrainingScreen extends Component {
     }
 
     secondElapsed() {
-        const { isWaiting, timeLeft, index, waitTimeLeft, finish, first } = this.state;
+        const { isWaiting, timeLeft, index, waitTimeLeft, finish, started, isRunning } = this.state;
+
+        if(!isRunning) {
+            return;
+        }
 
         if(finish || !this.mounted) {
             return;
@@ -82,7 +92,8 @@ export class TrainingScreen extends Component {
 
         if(isWaiting && waitTimeLeft > 0) {
             this.setState({
-                waitTimeLeft: waitTimeLeft - 1
+                waitTimeLeft: waitTimeLeft - 1,
+                started: true
             });
             return;
         }
@@ -109,7 +120,8 @@ export class TrainingScreen extends Component {
                 this.setState({
                     finish: true,
                     isWaiting: true,
-                    waitTimeLeft: this.props.defaultWaitTime
+                    waitTimeLeft: this.props.defaultWaitTime,
+                    index: this.state.index + 1
                 });
 
                 this.props.saveTrainingHistory({
@@ -117,9 +129,8 @@ export class TrainingScreen extends Component {
                     items: this.props.items
                 });
             } else {
-                //this.refs.carousel.snapToNext();
                 this.setState({
-                    index: index+1,
+                    index: index + 1,
                     timeLeft: this.props.items[index+1].duration,
                     isWaiting: true,
                     waitTimeLeft: this.props.defaultWaitTime
@@ -130,19 +141,35 @@ export class TrainingScreen extends Component {
         }
     }
 
+    onPlayPressed() {
+        this.setState({
+            isRunning: true
+        });
+    }
+
+    onPausePressed() {
+        this.setState({
+            isRunning: false
+        });
+    }
+
     getProgress() {
         let content;
         if(this.props.items === undefined) {
             content = null;
         } else {
-            content = `${this.state.index+1} / ${this.props.items.length}`;
+            let actualIndex = this.state.index;
+            if(this.state.index === this.props.items.length) {
+                actualIndex = this.state.index - 1;
+            }
+            content = `${actualIndex + 1} / ${this.props.items.length}`;
         }
 
         return (
-            <View style={{width: '100%'}}>
-                <Text style={[globalStyles.title, {textAlign: 'center', width: '100%'}]}>{content}</Text>
+            <View>
+                <Text style={{textAlign: 'center', fontSize: 18, margin: Padding.MD}}>Exercise {content}</Text>
                 <StepProgressbar
-                    style={{width: '100%'}}
+                    style={{margin: Padding.MD}}
                     itemsCount={this.props.items.length}
                     activeItemIndex={this.state.index}
                 />
@@ -151,37 +178,64 @@ export class TrainingScreen extends Component {
     }
 
     getCenter() {
+        let itemsCount = this.props.items.length;
+        let currentInedx = this.state.index;
+
+        if(currentInedx === itemsCount) {
+            currentInedx = currentInedx - 1;
+        }
+
         return (
             <View>
                 <Text style={{...globalStyles.title, textAlign: "center"}}>
-                    {this.props.items[this.state.index].name}
+                    {this.props.items[currentInedx].name}
                 </Text>
-                <Image source={images.getById(this.props.items[this.state.index].id)}/>
+                <Image source={images.getById(this.props.items[currentInedx].id)}/>
             </View>
         )
     }
 
     getBottom() {
-        const { isWaiting, timeLeft, index, waitTimeLeft, finish } = this.state;
+        const { isWaiting, timeLeft, index, waitTimeLeft, finish, isRunning } = this.state;
+
+        if(!isRunning) {
+            return (
+                <TouchableOpacity
+                    onPress={this.onPlayPressed}
+                >
+                    <Icon name='play' color={Colors.SUCCESS} size={IconSize.LG} />
+                </TouchableOpacity>
+            );
+        }
 
         return (
             finish ? 
-                <Text>Finish</Text> 
+                <Fragment>
+                    <Text>Finished</Text>
+                    <Icon name ='flag-checkered' color={Colors.SUCCESS} size={IconSize.LG} />
+                </Fragment>
                 : 
-                (<View>
-                    <Text style={globalStyles.title}>
-                        {isWaiting ? "ODPOCZYNEK": `TRENING`}
-                    </Text>
-                    <Text style={{...globalStyles.title, textAlign: "center"}}>
+                <Fragment>
+                    <Text style={{...globalStyles.title, ...styles.timeText}}>
                         {isWaiting ? waitTimeLeft : timeLeft}
                     </Text>
-                </View>)
+                    <Text style={[globalStyles.title, styles.infoText]}>
+                        {isWaiting ? "ODPOCZYNEK": `TRENING`}
+                    </Text>
+                    <View 
+                        style={{position: 'absolute', margin: Padding.MD, bottom: 0, right: 0}}
+                    >
+                        <TouchableOpacity onPress={this.onPausePressed}>
+                            <Icon name='pause' color={Colors.SUCCESS} size={IconSize.LG} />
+                        </TouchableOpacity>
+                    </View>
+                </Fragment>
         )
     }
 
     render() {
         return (
-            <View style={{...globalStyles.container, justifyContent: "space-around"}}>
+            <View style={{...globalStyles.container, justifyContent: "flex-start", backgroundColor: Colors.ARROW}}>
                 <View style={styles.topContainer}>
                     {this.getProgress()}
                 </View>
@@ -198,14 +252,30 @@ export class TrainingScreen extends Component {
 
 const styles = StyleSheet.create({
     topContainer: {
-        alignItems: "center", 
-        justifyContent: "center"
+        alignItems: "stretch", 
+        justifyContent: "center",
+        flex: 2,
+        //borderWidth: 1, borderColor: 'red'
     }, 
     middleContainer: {
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: 'center',
+        flex: 3,
+        //borderWidth: 1, borderColor: 'red'
     },
     bottomContainer: {
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: 'center',
+        flex: 2,
+        //borderWidth: 1, borderColor: 'red'
+    },
+    timeText: {
+        textAlign: 'center',
+        fontSize: 45,
+        color: Colors.PRIMARY
+    },
+    infoText: {
+        paddingBottom: Padding.LG
     }
 });
 

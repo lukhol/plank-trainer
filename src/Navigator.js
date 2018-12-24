@@ -16,6 +16,18 @@ import StartTrainingScreen from './containers/StartTrainingScreen';
 import TrainingScreen from './containers/TrainingScreen';
 import SettingsScreen from './containers/SettingsScreen';
 import i18n from './translations/i18n';
+import Colors from './common/colors';
+
+const headerStyle = {
+    backgroundColor: Colors.PRIMARY,
+    color: '#fff',
+    headerTintColor: '#fff'
+};
+
+const headerTitleStyle = {
+    fontSize: 16,
+    color: "#fff"
+};
 
 const rootNavigation = createTabNavigator(
     {
@@ -28,7 +40,7 @@ const rootNavigation = createTabNavigator(
         CustomTrainingScreen: { 
             screen: CustomTrainingScreen, 
             navigationOptions: {
-                title: i18n.t('customTrainingScreen.title')  
+                title: i18n.t('customTrainingScreen.title') 
             }
         },
         HistoryScreen: { 
@@ -67,24 +79,33 @@ const rootStackNavigation = createStackNavigator(
     {   
         RootScreen: { 
             screen: rootNavigation,
-             navigationOptions: { header: null }
+            navigationOptions: { header: null }
         },
         StartTrainingScreen: { 
             screen: StartTrainingScreen,
             navigationOptions: {
                 title: i18n.t('startTrainingScreen.title'),
+                headerStyle: headerStyle,
+                headerTitleStyle: headerTitleStyle,
+                headerTintColor: Colors.ARROW //Arrow
             }
         }, 
         TrainingScreen: {
             screen: TrainingScreen,
             navigationOptions: {
-                title: "Training"
+                title: "Training",
+                headerStyle: headerStyle,
+                headerTitleStyle: headerTitleStyle,
+                headerTintColor: Colors.ARROW //Arrow
             }
         },
         SettingsScreen: {
             screen: SettingsScreen,
             navigationOptions: {
-                title: i18n.t('settingsScreen.title')
+                title: i18n.t('settingsScreen.title'),
+                headerStyle: headerStyle,
+                headerTitleStyle: headerTitleStyle,
+                headerTintColor: Colors.ARROW //Arrow
             }
         }
     }
