@@ -68,6 +68,7 @@
 		E292E359250844C790CBBC8F /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D214D9C9F6EA4DFF99E7E8E9 /* libRNSVG.a */; };
 		6FC68EFD61A44A20BAD104D1 /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 891E6CBDDB00418195397166 /* libRNSVG-tvOS.a */; };
 		D6D9A6F7925B492E991AD10D /* libTextToSpeech.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D06083F3D57944FDB81C87C3 /* libTextToSpeech.a */; };
+		C4ABF337C5D0432DA4E185F7 /* libKCKeepAwake.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF02B7BAE004637B3083A8F /* libKCKeepAwake.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -410,6 +411,8 @@
 		891E6CBDDB00418195397166 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; name = "libRNSVG-tvOS.a"; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		A82EA4E77D864A0384944168 /* TextToSpeech.xcodeproj */ = {isa = PBXFileReference; name = "TextToSpeech.xcodeproj"; path = "../node_modules/react-native-tts/ios/TextToSpeech.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		D06083F3D57944FDB81C87C3 /* libTextToSpeech.a */ = {isa = PBXFileReference; name = "libTextToSpeech.a"; path = "libTextToSpeech.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		CAC96314525E472FBFE5344E /* KCKeepAwake.xcodeproj */ = {isa = PBXFileReference; name = "KCKeepAwake.xcodeproj"; path = "../node_modules/react-native-keep-awake/ios/KCKeepAwake.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		ECF02B7BAE004637B3083A8F /* libKCKeepAwake.a */ = {isa = PBXFileReference; name = "libKCKeepAwake.a"; path = "libKCKeepAwake.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -443,6 +446,7 @@
 				CA97D99CA7544AE6B6712D38 /* libRNVectorIcons.a in Frameworks */,
 				E292E359250844C790CBBC8F /* libRNSVG.a in Frameworks */,
 				D6D9A6F7925B492E991AD10D /* libTextToSpeech.a in Frameworks */,
+				C4ABF337C5D0432DA4E185F7 /* libKCKeepAwake.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,6 +642,7 @@
 				F2AB1EBD65854EE28592BF33 /* RNVectorIcons.xcodeproj */,
 				6D7F379AB45C4475B8F2B056 /* RNSVG.xcodeproj */,
 				A82EA4E77D864A0384944168 /* TextToSpeech.xcodeproj */,
+				CAC96314525E472FBFE5344E /* KCKeepAwake.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1327,6 +1332,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1336,6 +1342,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-tts\ios\TextToSpeech",
+					"$(SRCROOT)\..\node_modules\react-native-keep-awake\ios",
 				);
 			};
 			name = Debug;
@@ -1366,6 +1373,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1375,6 +1383,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-tts\ios\TextToSpeech",
+					"$(SRCROOT)\..\node_modules\react-native-keep-awake\ios",
 				);
 			};
 			name = Release;
@@ -1403,6 +1412,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-tts\ios\TextToSpeech",
+					"$(SRCROOT)\..\node_modules\react-native-keep-awake\ios",
 				);
 			};
 			name = Debug;
@@ -1430,6 +1440,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-tts\ios\TextToSpeech",
+					"$(SRCROOT)\..\node_modules\react-native-keep-awake\ios",
 				);
 			};
 			name = Release;
@@ -1468,6 +1479,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1477,6 +1489,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-tts\ios\TextToSpeech",
+					"$(SRCROOT)\..\node_modules\react-native-keep-awake\ios",
 				);
 			};
 			name = Debug;
@@ -1515,6 +1528,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1524,6 +1538,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-tts\ios\TextToSpeech",
+					"$(SRCROOT)\..\node_modules\react-native-keep-awake\ios",
 				);
 			};
 			name = Release;
@@ -1561,6 +1576,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1570,6 +1586,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-tts\ios\TextToSpeech",
+					"$(SRCROOT)\..\node_modules\react-native-keep-awake\ios",
 				);
 			};
 			name = Debug;
@@ -1607,6 +1624,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1616,6 +1634,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-tts\ios\TextToSpeech",
+					"$(SRCROOT)\..\node_modules\react-native-keep-awake\ios",
 				);
 			};
 			name = Release;

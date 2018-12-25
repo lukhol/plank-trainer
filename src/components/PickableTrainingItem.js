@@ -12,7 +12,9 @@ export default class TrainingItem extends Component {
                 <Card style={styles.card}>
                     <H4>{this.props.item.name}</H4>    
                     <Image 
+                        style={{maxHeight: 120, flex: 1}}
                         source={images.getById(this.props.item.id)}
+                        resizeMode='contain'
                     />
                 </Card>
             </TouchableWithoutFeedback>
@@ -23,9 +25,10 @@ export default class TrainingItem extends Component {
 const styles = StyleSheet.create({
     card: {
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         marginLeft: 10,
         marginRight: 10,
-        padding: 6
+        padding: 6,
+        height: 150
     }
 });

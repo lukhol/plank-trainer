@@ -30,7 +30,9 @@ export default class CustomizeTrainingItem extends Component {
                     </View>
                     <View style={styles.rightContainer}>
                         <Image 
+                            style={{maxHeight: 100, flex: 1}}
                             source={images.getById(this.props.imageName)}
+                            resizeMode='contain'
                         />
                     </View>
                 </Card>
@@ -49,10 +51,12 @@ const styles = StyleSheet.create({
     rightContainer: {
         flex: 1,
         flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
+        alignItems: 'stretch',
+        justifyContent: 'flex-start',
         marginTop: 0,
-        padding: 6
+        padding: 6,
+        // borderWidth: 1,
+        // borderColor: 'red'
     },
     description: {
         padding: 6,

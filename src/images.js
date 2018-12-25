@@ -1,16 +1,16 @@
+const imageDirName = 'img2';
 
-
-export const full = require('../img/full.png');
-export const sideLeft = require('../img/sideLeft.png');
-export const sideRight = require('../img/sideRight.png');
-export const elbow = require('../img/elbow.png');
-export const reverse = require('../img/reverse.png');
-export const raisedLeftLeg = require('../img/raisedLeftLeg.png');
-export const raisedRightLeg = require('../img/raisedRightLeg.png');
-export const basic = require('../img/reverse.png');
-export const raisedLeftHand = require('../img/raisedLeftLeg.png');
-export const raisedRightHand = require('../img/raisedRightLeg.png');
-export const defaultImage = require('../img/full.png');
+export const full = require(`../${imageDirName}/full.png`);
+export const sideLeft = require(`../${imageDirName}/sideLeft.png`);
+export const sideRight = require(`../${imageDirName}/sideRight.png`);
+export const elbow = require(`../${imageDirName}/elbow.png`);
+export const reverse = require(`../${imageDirName}/reverse.png`);
+export const raisedLeftLeg = require(`../${imageDirName}/raisedLeftLeg.png`);
+export const raisedRightLeg = require(`../${imageDirName}/raisedRightLeg.png`);
+export const basic = require(`../${imageDirName}/reverse.png`);
+export const raisedLeftHand = require(`../${imageDirName}/raisedLeftLeg.png`);
+export const raisedRightHand = require(`../${imageDirName}/raisedRightLeg.png`);
+export const defaultImage = require(`../${imageDirName}/basic.png`);
 
 export function getById(id) {
     switch(id) {

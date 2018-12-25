@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { View, Image, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Image, Text, Dimensions , StyleSheet, TouchableOpacity } from 'react-native';
 import globalStyles from '../../styles';
 import { Card } from 'native-base';
 import { connect } from 'react-redux';
@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { IconSize, Padding } from '../../common/constants';
 import Colors from '../../common/colors';
 import i18n from '../../translations/i18n';
+import KeepAwake from 'react-native-keep-awake';
 
 export class TrainingScreen extends Component {
     constructor(props) {
@@ -46,11 +47,13 @@ export class TrainingScreen extends Component {
 
         this.mounted = true;
 
+        KeepAwake.activate();
         setInterval(this.secondElapsed, 1000);
     }
 
     componentWillUnmount() {
         this.mounted = false;
+        KeepAwake.deactivate();
         clearInterval(this.secondElapsed);
     }
 
@@ -169,7 +172,9 @@ export class TrainingScreen extends Component {
 
         return (
             <View>
-                <Text style={{textAlign: 'center', fontSize: 18, margin: Padding.MD}}>{i18n.t('trainingScreen.exerciseIndicator')} {content}</Text>
+                <Text style={{textAlign: 'center', fontSize: 18, margin: Padding.MD}}>
+                    {i18n.t('trainingScreen.exerciseIndicator')} {content}
+                </Text>
                 <StepProgressbar
                     style={{margin: Padding.MD}}
                     itemsCount={this.props.items.length}
@@ -188,12 +193,12 @@ export class TrainingScreen extends Component {
         }
 
         return (
-            <View>
-                <Text style={{...globalStyles.title, textAlign: "center"}}>
+            <Fragment>
+                <Text style={{...globalStyles.title, textAlign: "center", zIndex: 99, position: 'absolute', top: 0}}>
                     {this.props.items[currentInedx].name}
                 </Text>
                 <Image source={images.getById(this.props.items[currentInedx].id)}/>
-            </View>
+            </Fragment>
         )
     }
 
@@ -203,6 +208,7 @@ export class TrainingScreen extends Component {
         if(!isRunning) {
             return (
                 <TouchableOpacity
+                    style={styles.playIconTouchable}
                     onPress={this.onPlayPressed}
                 >
                     <Icon name='play' color={Colors.SUCCESS} size={IconSize.LG} />
@@ -218,7 +224,7 @@ export class TrainingScreen extends Component {
                 </Fragment>
                 : 
                 <Fragment>
-                    <Text style={{...globalStyles.title, ...styles.timeText}}>
+                    <Text style={{...globalStyles.title, ...styles.timeText, flex: 1}}>
                         {isWaiting ? waitTimeLeft : timeLeft}
                     </Text>
                     <Text style={[globalStyles.title, styles.infoText]}>
@@ -252,32 +258,46 @@ export class TrainingScreen extends Component {
     }
 }
 
+const screenWidth = Dimensions.get('window').width;
+const size = Math.floor(screenWidth / 4);
+const borderRadius = size / 2;
+
 const styles = StyleSheet.create({
     topContainer: {
         alignItems: "stretch", 
-        justifyContent: "center",
-        flex: 2,
-        //borderWidth: 1, borderColor: 'red'
+        justifyContent: "flex-start",
+        flex: 2
     }, 
     middleContainer: {
         alignItems: "center",
         justifyContent: 'center',
         flex: 3,
-        //borderWidth: 1, borderColor: 'red'
     },
     bottomContainer: {
-        alignItems: "center",
-        justifyContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
         flex: 2,
-        //borderWidth: 1, borderColor: 'red'
     },
     timeText: {
         textAlign: 'center',
-        fontSize: 45,
-        color: Colors.PRIMARY
+        fontSize: size / 3,
+        color: Colors.PRIMARY,
+        backgroundColor: '#fff',
+        width: size,
+        height: size,
+        borderRadius: borderRadius
     },
     infoText: {
         paddingBottom: Padding.LG
+    },
+    playIconTouchable:{
+        width: IconSize.LG+30,
+        height: IconSize.LG+30,
+        backgroundColor: '#fff',
+        borderRadius: (IconSize.LG+30)/2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingLeft: 2
     }
 });
 

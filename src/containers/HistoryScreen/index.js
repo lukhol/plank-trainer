@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SectionList } fro
 import globalStyles from '../../styles';
 import { LineChart } from 'react-native-chart-kit'
 import { Dimensions } from 'react-native'
-import { Card } from 'native-base';
+import { Card, CardItem } from 'native-base';
 import { Padding } from '../../common/constants';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -18,6 +18,7 @@ export class HistoryScreen extends Component {
         this.isInRange = this.isInRange.bind(this);
         this.prepareHistorySections = this.prepareHistorySections.bind(this);
         this.getDurationsInRage = this.getDurationsInRage.bind(this);
+        this.historySectionListContent = this.historySectionListContent.bind(this);
         this.historySectionListHeader = this.historySectionListHeader.bind(this);
         this.state = {
             startOfWeek: moment().startOf('isoWeek').hours(0).minutes(0).seconds(0),
@@ -74,21 +75,31 @@ export class HistoryScreen extends Component {
         return [
             {
                 title: 'Sekcja 1',
-                data: this.props.historyList
+                data: this.props.historyList.filter(item => this.isInRange(item.datetime, this.state.startOfWeek, this.state.endOfWeek))
             }
         ];
     }
 
     historySectionListHeader(props) {
-        return <Text>
-            Header
-        </Text>
+        return (
+            <CardItem header bordered>
+                <Text>This week trainings:</Text>
+            </CardItem>
+        )
+    }
+
+    historySectionListContent(props) {
+        return (
+            <CardItem>
+                <Text>{props.item.name}</Text>
+            </CardItem>
+        )
     }
 
     render() {
         return (
             <View style={{...globalStyles.container}}>
-                <ScrollView style={{padding: Padding.SM}}>
+                <ScrollView style={{flex: 1, paddingHorizontal: Padding.SM, marginVertical: Padding.SM}}>
                     <Card>
                         <LineChart 
                             data={{
@@ -127,17 +138,17 @@ export class HistoryScreen extends Component {
                             </TouchableOpacity>
                         </View>
                     </Card>
-                    <Card>
+                    {this.props.historyList.length > 0 
+                    ? 
+                    <Card style={{margin: Padding.LG}}>
                         <SectionList 
                             style={{flex: 1}}
                             sections={this.prepareHistorySections()}
                             keyExtractor={(item, index) => index}
-                            renderItem={(props) => {
-                                return <Text>{props.item.name}</Text>
-                            }}
+                            renderItem={this.historySectionListContent}
                             renderSectionHeader={this.historySectionListHeader}
                         />
-                    </Card>
+                    </Card> : null}
                 </ScrollView>
             </View>
         )

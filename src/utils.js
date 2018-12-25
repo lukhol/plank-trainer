@@ -6,5 +6,5 @@ export function sec2time(timeInSeconds) {
     seconds = Math.floor(time - minutes * 60),
     milliseconds = time.slice(-3);
 
-    return pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
+    return /*pad(hours, 2) + ':' +*/ pad(minutes, 2) + ':' + pad(seconds, 2);
 }

@@ -23,7 +23,9 @@ export default class TrainingItem extends Component {
                 </View>
                 <View style={styles.rightContainer}>
                     <Image 
+                        style={{maxHeight: 150, flex: 1}}
                         source={images.getById(this.props.item.id)}
+                        resizeMode='contain'
                     />
                 </View>
             </Card>
@@ -39,16 +41,17 @@ const styles = StyleSheet.create({
         padding: 6
     },
     leftContainer: {
-        flex: 1,
         padding: 10
     },
     rightContainer: {
         flex: 1,
         flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
+        alignItems: 'stretch',
+        justifyContent: 'flex-start',
         marginTop: 0,
-        padding: 6
+        padding: 6,
+        // borderWidth: 1,
+        // borderColor: 'red'
     },
     description: {
         padding: 6
