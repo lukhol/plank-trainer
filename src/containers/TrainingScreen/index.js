@@ -10,6 +10,7 @@ import * as HistoryActions from '../../actions/HistoryActions';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { IconSize, Padding } from '../../common/constants';
 import Colors from '../../common/colors';
+import i18n from '../../translations/i18n';
 
 export class TrainingScreen extends Component {
     constructor(props) {
@@ -126,7 +127,8 @@ export class TrainingScreen extends Component {
 
                 this.props.saveTrainingHistory({
                     datetime: new Date().toISOString(),
-                    items: this.props.items
+                    items: this.props.items,
+                    name: this.props.name
                 });
             } else {
                 this.setState({
@@ -167,7 +169,7 @@ export class TrainingScreen extends Component {
 
         return (
             <View>
-                <Text style={{textAlign: 'center', fontSize: 18, margin: Padding.MD}}>Exercise {content}</Text>
+                <Text style={{textAlign: 'center', fontSize: 18, margin: Padding.MD}}>{i18n.t('trainingScreen.exerciseIndicator')} {content}</Text>
                 <StepProgressbar
                     style={{margin: Padding.MD}}
                     itemsCount={this.props.items.length}
@@ -211,7 +213,7 @@ export class TrainingScreen extends Component {
         return (
             finish ? 
                 <Fragment>
-                    <Text>Finished</Text>
+                    <Text>{i18n.t('trainingScreen.finished')}</Text>
                     <Icon name ='flag-checkered' color={Colors.SUCCESS} size={IconSize.LG} />
                 </Fragment>
                 : 
@@ -220,7 +222,7 @@ export class TrainingScreen extends Component {
                         {isWaiting ? waitTimeLeft : timeLeft}
                     </Text>
                     <Text style={[globalStyles.title, styles.infoText]}>
-                        {isWaiting ? "ODPOCZYNEK": `TRENING`}
+                        {isWaiting ? i18n.t('trainingScreen.restMessage'): i18n.t('trainingScreen.trainingMessage')}
                     </Text>
                     <View 
                         style={{position: 'absolute', margin: Padding.MD, bottom: 0, right: 0}}
@@ -282,6 +284,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         items: state.training.items,
+        name: state.training.name,
         defaultWaitTime: state.settings.defaultWaitTime,
         sound: state.settings.sound
     }

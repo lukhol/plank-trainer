@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { IconSize, Padding } from '../../common/constants';
 import Colors from '../../common/colors';
 import { H4, H5, SettingsPicker } from '../../components';
+import i18n from '../../translations/i18n';
 
 export class SettingsScreen extends Component {
     constructor(props) {
@@ -62,12 +63,12 @@ export class SettingsScreen extends Component {
         return (
             <View style={globalStyles.container}>
                 <View style={styles.sectionTitle}>
-                    <H5>Ustawienia czasowe</H5>
+                    <H5>{i18n.t('settingsScreen.timeTitle')}</H5>
                 </View>
                 <View style={styles.section}>
                     <ListItem icon style={styles.listItem}>
                         <SettingsPicker
-                            text="Czas trwania odpoczynku"
+                            text={i18n.t('settingsScreen.restDuration')}
                             selectedValue={this.state.defaultWaitTime}
                             onValueChange={this.defaultWaitTimeChanged}
                             data={this.buildPickerData()}
@@ -76,7 +77,7 @@ export class SettingsScreen extends Component {
                     </ListItem>
                     <ListItem icon style={styles.listItem}>
                         <SettingsPicker
-                            text="Odliczanie do startu"
+                            text={i18n.t('settingsScreen.beforeStartCount')}
                             selectedValue={this.state.readyDuration}
                             onValueChange={this.readyDirationChanged}
                             data={this.buildPickerData()}
@@ -85,7 +86,7 @@ export class SettingsScreen extends Component {
                     </ListItem>
                 </View>
                 <View style={styles.sectionTitle}>
-                    <H5>Ustawienia dzwiękowe</H5>
+                    <H5>{i18n.t('settingsScreen.soundTitle')}</H5>
                 </View>
                 <View style={styles.section}>
                     <ListItem icon style={styles.listItem}>
@@ -95,7 +96,7 @@ export class SettingsScreen extends Component {
                             </View>
                             <View style={globalStyles.centerContainer}>
                                 <Text>
-                                    Dzwięk
+                                    {i18n.t('settingsScreen.sound')}
                                 </Text>
                             </View>
                             <View style={globalStyles.endContainer}>

@@ -12,6 +12,7 @@ import Modal from 'react-native-modalbox';
 import uuid from 'uuid/v4';
 import SortableListView from 'react-native-sortable-listview';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome5';
+import i18n from '../../translations/i18n';
 
 export class CustomTrainingScreen extends Component {
     constructor(props) {
@@ -48,15 +49,15 @@ export class CustomTrainingScreen extends Component {
         let message = '';
 
         if(this.state.name === '') {
-            message += 'Name cannot be empty. \n';
+            message += i18n.t('customTrainingScreen.errors.name');
         }
 
         if(planksForLevel === undefined || planksForLevel.length === 0) {
-            message += 'Choose at least one item. \n';
+            message += i18n.t('customTrainingScreen.errors.noPlankChoosen');
         }
 
         if(hasZeroDuration) {
-            message += 'Each plank has to be longer than 0 seconds.';
+            message += i18n.t('customTrainingScreen.errors.zeroDurationPlanks');
         }
 
         if(message !== '') {
@@ -86,7 +87,7 @@ export class CustomTrainingScreen extends Component {
             isValid: false
         });
 
-        alert('Level added successfylly');
+        alert(i18n.t('customTrainingScreen.errors.levelAddedSuccessfully'));
     }
 
     onItemPressed(id) {
@@ -142,22 +143,17 @@ export class CustomTrainingScreen extends Component {
         return (
             <View style={globalStyles.container}>
                 <View style={styles.infoContainer}>
-                    {/* <TextInput 
-                        style={styles.textInput}
-                        placeholder="Level name..."
-                        onChangeText={name => this.setState({name})}
-                        value={this.state.name}/> */}
                     <ValidateableInput
-                        placeholder="Level name..."
+                        placeholder={i18n.t('customTrainingScreen.messages.levelNameInputPlaceholder')}
                         onChangeText={name => this.setState({name, isValid: name === '' ? false : true})}
                         value={this.state.name}
                         style={styles.textInput}
                         isValid={this.state.isValid}
-                        errorMessage='Nazwa jest wymagana'
+                        errorMessage={i18n.t('customTrainingScreen.errors.nameValidationMessage')}
                     />
                     <Text style={styles.overalTime}>
                         <H3 style={{color: "#eee"}}>
-                            Overal time: {this.getOveralTime()}
+                            {i18n.t('customTrainingScreen.messages.overalTime')} {this.getOveralTime()}
                         </H3>
                     </Text>
                 </View>

@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import TrainingItem from '../../components/TrainingItem';
 import * as TrainingActions from '../../actions/TrainingActions';
 import { Button } from 'native-base';
+import i18n from '../../translations/i18n';
 
 export class StartTrainingScreen extends Component {
     render() {
-        console.log(this.props.planks);
         return (
             <View style={globalStyles.container}>
                 <FlatList
@@ -25,12 +25,12 @@ export class StartTrainingScreen extends Component {
                     full
                     success
                     onPress={() => {
-                        this.props.chooseTrainingItems(this.props.planks);
+                        this.props.chooseTrainingItems(this.props.planks, this.props.displayingLevel.name);
                         this.props.navigation.navigate('TrainingScreen');
                     }}
                 >
                     <Text style={globalStyles.textButton}>
-                        Start training
+                        {i18n.t('startTrainingScreen.startButton')}
                     </Text>
                 </Button>
             </View>
@@ -54,18 +54,19 @@ function preparePlanks(allPlanks, levels, customLevels, choosenLevelId) {
         }
     }
 
-    return propsPlanks;
+    return {
+        planks: propsPlanks,
+        displayingLevel: levelToDisplay
+    };
 }
 
 const mapStateToProps = state => {
-    return  {
-        planks: preparePlanks(state.planks, state.levels.levels, state.levels.customLevels, state.levels.choosenLevelId),
-    }
+    return preparePlanks(state.planks, state.levels.levels, state.levels.customLevels, state.levels.choosenLevelId)
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        chooseTrainingItems: (items) => dispatch(TrainingActions.chooseTrainingItems(items))
+        chooseTrainingItems: (items, name) => dispatch(TrainingActions.chooseTrainingItems(items, name))
     }
 }
 

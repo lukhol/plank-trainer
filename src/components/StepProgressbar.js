@@ -24,7 +24,7 @@ class StepProgressbar extends Component {
 
         for(let i = 0 ; i < this.props.activeItemIndex; i++) {
             doneItems.push(
-                <View style={[styles.item, styles.itemDone, this.props.doneDotStyle]}>
+                <View style={[styles.item, styles.itemDone, this.props.doneDotStyle]} key={i}>
                     <Icon name='check' color='#fff' />
                 </View>  
             )
@@ -50,7 +50,7 @@ class StepProgressbar extends Component {
 
         for(let i = this.props.activeItemIndex ; i < this.props.itemsCount - 1 ; i++) {
             notActiveItems.push( 
-                <View style={styles.item}>
+                <View style={styles.item} key={i}>
                     <Text>{i+2}</Text> 
                 </View>
             );

@@ -1,17 +1,54 @@
 {
+    "common": {
+        "weekdays": {
+            "mon": "Pon.",
+            "tue": "Wt.",
+            "wed": "Śr.",
+            "thu": "Czw.",
+            "fri": "Pi.",
+            "sat": "Sob.",
+            "sun": "Nd."
+        }
+    },
     "levelsScreen": {
-        "title": "Trenuj"
+        "title": "Trenuj",
+        "customLevelsTitle": "Własne treningi",
+        "standardTrainingTitle": "Strandardowe treningi"
     },
     "historyScreen": {
         "title": "Historia"
     },
     "customTrainingScreen": {
-        "title": "Własny plan"
+        "title": "Własny plan",
+        "errors": {
+            "name": "Nazwa nie może być pusta. \n",
+            "noPlankChoosen": "Musisz wybrać chociaż jednego planka. \n",
+            "zeroDurationPlanks": "Każdy plank musi miec długość większą od 0.",
+            "nameValidationMessage": "Nazwa jest wymagana."
+        },
+        "messages": {
+            "levelNameInputPlaceholder": "Nazwa treningu...",
+            "levelAddedSuccessfully": "Poziom dodany pomyślnie",
+            "overalTime": "Całkowity czas: "
+        }
     },
     "startTrainingScreen": {
-        "title": "Przegląd treningu"
+        "title": "Przegląd treningu",
+        "startButton": "Rozpocznij"
     },
     "settingsScreen": {
-        "title": "Ustawienia"
+        "title": "Ustawienia",
+        "timeTitle": "Ustawienia czasowe",
+        "soundTitle": "Ustawienia dzwiękowe",
+        "restDuration": "Czas trwania odpoczynku",
+        "beforeStartCount": "Odliczanie do startu",
+        "sound": "Dzwięk"
+    },
+    "trainingScreen": {
+        "title": "Trening",
+        "exerciseIndicator": "Ćwiczenie ",
+        "restMessage": "ODPOCZYNEK",
+        "trainingMessage": "TRENING",
+        "finished": "Koniec!"
     }
 }

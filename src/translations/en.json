@@ -1,17 +1,54 @@
 {
+    "common": {
+        "weekdays": {
+            "mon": "Mon.",
+            "tue": "Tue.",
+            "wed": "Wed.",
+            "thu": "Thu.",
+            "fri": "Fri.",
+            "sat": "Sat.",
+            "sun": "Sun."
+        }
+    },
     "levelsScreen": {
-        "title": "Train"
+        "title": "Train",
+        "customLevelsTitle": "Own trainings",
+        "standardTrainingTitle": "Standard trainings"
     },
     "historyScreen": {
         "title": "History"
     },
     "customTrainingScreen": {
-        "title": "Custom plan"
+        "title": "Custom plan",
+        "errors": {
+            "name": "Name cannot be empty. \n",
+            "noPlankChoosen": "Choose at least one item. \n",
+            "zeroDurationPlanks": "Each plank has to be longer than 0 seconds.",
+            "nameValidationMessage": "Name is required"
+        },
+        "messages": {
+            "levelNameInputPlaceholder": "Level name...",
+            "levelAddedSuccessfully": "Level added successfylly",
+            "overalTime": "Overal time: "
+        }
     },
-    "StartTrainingScreen": {
-        "title": "Training overview"
+    "startTrainingScreen": {
+        "title": "Training overview",
+        "startButton": "Start"
     },
     "settingsScreen": {
-        "title": "Settings"
+        "title": "Settings",
+        "timeTitle": "Time settings",
+        "soundTitle": "Sound settings",
+        "restDuration": "Rest time duration",
+        "beforeStartCount": "Start count time",
+        "sound": "Sound"
+    },
+    "trainingScreen": {
+        "title": "Training",
+        "exerciseIndicator": "Exercise ",
+        "restMessage": "REST",
+        "trainingMessage": "TRAIN",
+        "finished": "Finished!"
     }
 }

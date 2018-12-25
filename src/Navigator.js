@@ -93,7 +93,7 @@ const rootStackNavigation = createStackNavigator(
         TrainingScreen: {
             screen: TrainingScreen,
             navigationOptions: {
-                title: "Training",
+                title: i18n.t('trainingScreen.title'),
                 headerStyle: headerStyle,
                 headerTitleStyle: headerTitleStyle,
                 headerTintColor: Colors.ARROW //Arrow

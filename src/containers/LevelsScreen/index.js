@@ -3,7 +3,7 @@ import { View, SectionList, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import * as LevelsActions from '../../actions/LevelsActions';
 import { Padding } from '../../common/constants';
-import { Card } from 'native-base';
+import i18n from '../../translations/i18n';
 import { OverflowLoader, LevelItem, StepProgressbar } from '../../components';
 
 export class LevelsScreen extends Component {
@@ -31,11 +31,11 @@ export class LevelsScreen extends Component {
     getSections() {
         return [
             {
-                title: "Własne treningi",
+                title: i18n.t('levelsScreen.customLevelsTitle'),
                 data: this.props.levels.customLevels
             },
             {
-                title: "Standardowe treningi",
+                title: i18n.t('levelsScreen.standardTrainingTitle'),
                 data: this.props.levels.levels
             }
         ]
