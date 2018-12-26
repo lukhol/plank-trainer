@@ -66,13 +66,15 @@ export class SettingsScreen extends Component<Props, Settings> {
     buildPickerData(): Array<SettingsPicker.Item> {
         const data = [];
         for(let i = 1 ; i <= 120 ; i++) {
-            data.push({label: `${i} s`, value: i});
+            data.push({label: `${i} s`, value: i.toString()});
         }
 
         return data;
     }
 
     render() {
+        const { readyDuration, defaultWaitTime } = this.state;
+        console.log({readyDuration, defaultWaitTime});;
         return (
             <View style={globalStyles.container}>
                 <View style={styles.sectionTitle}>
