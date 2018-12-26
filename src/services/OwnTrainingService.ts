@@ -40,7 +40,6 @@ export async function findAll() {
         if(allJson == null) {
             return [];
         }
-        console.log('allJson', JSON.parse(allJson));
         return JSON.parse(allJson);
     } catch (e) {
         console.log(e);

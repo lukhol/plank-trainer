@@ -156,7 +156,6 @@ export class CustomTrainingScreen extends Component<Props, State> {
     }
 
     render() {
-        console.log('CustomTraininScreen ', this.props);
         return (
             <View style={globalStyles.container}>
                 <View style={styles.infoContainer}>
@@ -263,8 +262,14 @@ const mapStateToProps = ({planks, levels}: RootState) => ({
     isLoading: levels.isFethingCustom
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    insert: (level: Training) => dispatch(LevelsActions.insert(level))
-});
+const mapDispatchToProps = {
+    insert: LevelsActions.insert
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomTrainingScreen);
+type StateProps = ReturnType<typeof mapStateToProps>
+type DispatchProps = typeof mapDispatchToProps;
+
+export default connect<StateProps, DispatchProps>(
+    mapStateToProps, 
+    mapDispatchToProps
+)(CustomTrainingScreen);

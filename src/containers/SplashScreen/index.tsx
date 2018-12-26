@@ -12,7 +12,7 @@ export interface SplashScreenProps {
     loadHistory(): void,
     loadSettings(): void,
     settings: Settings
-
+    navigation: any
 }
 
 export class SplashScreen extends Component<SplashScreenProps> {
@@ -42,9 +42,12 @@ const mapStateToProps = ({settings}: RootState) => ({
     settings
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    loadSettings: () => dispatch(SettingsActions.load()),
-    loadHistory: () => dispatch(HistoryActions.getAll())
-});
+const mapDispatchToProps = {
+    loadSettings: SettingsActions.load,
+    loadHistory: HistoryActions.getAll
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen);
+export default connect(
+    mapStateToProps, 
+    mapDispatchToProps
+)(SplashScreen);

@@ -21,7 +21,6 @@ export interface Props {
 
 export default class CustomizableTrainingItem extends Component<Props, any> {    
     render() {
-        console.log('CustomizableTrainingItem ', this.props);
         return (
             <TouchableOpacity
                 {...this.props.sortHandlers}>

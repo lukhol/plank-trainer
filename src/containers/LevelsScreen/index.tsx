@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View, SectionList, Text, StyleSheet } from 'react-native';
+import React, { Component, ReactElement } from 'react';
+import { View, SectionList, Text, StyleSheet, SectionListData } from 'react-native';
 import { connect } from 'react-redux';
 import * as LevelsActions from '../../actions/LevelsActions';
 import { Padding } from '../../common/constants';
@@ -14,9 +14,9 @@ export interface LevelsScreenProps {
     planks: Array<Plank>,
     levels: LevelState,
     isLoading: boolean,
-    deleteById(id: string): void,
-    findAllCustom(): void,
-    chooseLevel(id: string): void,
+    deleteById: (id: string) => void,
+    findAllCustom: () => void,
+    chooseLevel: (id: string) => void,
     navigation: any
 }
 
@@ -42,7 +42,7 @@ export class LevelsScreen extends Component<LevelsScreenProps> {
         this.props.navigation.navigate('StartTrainingScreen');
     }
 
-    getSections() {
+    getSections(): SectionListData<Training>[] {
         return [
             {
                 title: i18n.t('levelsScreen.customLevelsTitle'),
@@ -55,8 +55,8 @@ export class LevelsScreen extends Component<LevelsScreenProps> {
         ]
     }
 
-    renderHeader(props: any) {
-        return <Text style={styles.listTitle}>{props.section.title}</Text>
+    renderHeader({section}: {section: SectionListData<Training>}): ReactElement<Text> | null {
+        return <Text style={styles.listTitle}>{section.title}</Text>
     }
 
     render() {
@@ -73,7 +73,7 @@ export class LevelsScreen extends Component<LevelsScreenProps> {
                             {...props} 
                         />
                     }
-                    renderSectionHeader={(props) => this.renderHeader(props)}
+                    renderSectionHeader={this.renderHeader}
                 />
                 {this.props.isLoading && <OverflowLoader />}
             </View>
@@ -99,11 +99,14 @@ const mapStateToProps = ({planks, levels}: RootState) => ({
     isLoading: levels.isFethingCustom
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    chooseLevel: (id: string) => dispatch(LevelsActions.chooseLevel(id)),
-    findAllCustom: () => dispatch(LevelsActions.findAllCustom()),
-    insert: (level: Training) => dispatch(LevelsActions.insert(level)),
-    deleteById: (id: string) => dispatch(LevelsActions.deleteById(id))
-});
+const mapDispatchToProps = {
+    chooseLevel: LevelsActions.chooseLevel,
+    findAllCustom: LevelsActions.findAllCustom,
+    insert: LevelsActions.insert,
+    deleteById: LevelsActions.deleteById
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(LevelsScreen);
+export default connect(
+    mapStateToProps, 
+    mapDispatchToProps
+)(LevelsScreen);

@@ -14,13 +14,13 @@ import { HistoryItem } from '../../models';
 import { RootState } from '../../reducers';
 
 export interface Props {
-    historyList: Array<HistoryItem>
+    historyList: HistoryItem[]
 }
 
 export interface State {
     startOfWeek: Moment,
     endOfWeek: Moment,
-    data: Array<number>
+    data: number[]
 }
 
 export class HistoryScreen extends Component<Props, State> {
@@ -101,10 +101,10 @@ export class HistoryScreen extends Component<Props, State> {
         )
     }
 
-    historySectionListContent(props: any) {
+    historySectionListContent({item}: {item: HistoryItem}) {
         return (
             <CardItem>
-                <Text>{props.item.name}</Text>
+                <Text>{item.name}</Text>
             </CardItem>
         )
     }
@@ -172,6 +172,7 @@ const mapStateToProps = ({history}: RootState) => ({
     historyList: history.historyItems
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(HistoryScreen);
+export default connect(
+    mapStateToProps, 
+    {}
+)(HistoryScreen);

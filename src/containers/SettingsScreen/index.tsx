@@ -73,8 +73,6 @@ export class SettingsScreen extends Component<Props, Settings> {
     }
 
     render() {
-        const { readyDuration, defaultWaitTime } = this.state;
-        console.log({readyDuration, defaultWaitTime});;
         return (
             <View style={globalStyles.container}>
                 <View style={styles.sectionTitle}>
@@ -146,8 +144,11 @@ const mapStateToProps = ({settings}: RootState) => ({
     settings
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    saveSettings: (settings: Settings) => dispatch(SettingsActions.save(settings))
-});
+const mapDispatchToProps = {
+    saveSettings: SettingsActions.save
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen);
+export default connect(
+    mapStateToProps, 
+    mapDispatchToProps)
+(SettingsScreen);

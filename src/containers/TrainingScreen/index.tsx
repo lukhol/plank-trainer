@@ -329,9 +329,9 @@ const mapStateToProps = ({training, settings}: RootState) => ({
     sound: settings.sound
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    saveTrainingHistory: (historyItem: HistoryItem) => dispatch(HistoryActions.insert(historyItem))
-});
+const mapDispatchToProps = {
+    saveTrainingHistory:HistoryActions.insert
+};
 
 export default connect(
     mapStateToProps, 

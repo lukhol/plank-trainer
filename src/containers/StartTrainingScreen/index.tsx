@@ -20,7 +20,6 @@ export interface Props {
 
 export class StartTrainingScreen extends Component<Props> {
     render() {
-        console.log('abc', this.props.planks);
         return (
             <View style={globalStyles.container}>
                 <FlatList
@@ -66,7 +65,6 @@ function preparePlanks(allPlanks: Plank[], levels: Training[], customLevels: Tra
         }
     }
 
-    console.log({propsPlanks});
     return {
         computedPlanks: propsPlanks,
         displayingLevel: levelToDisplay
@@ -80,10 +78,9 @@ const mapStateToProps = ({planks, levels}: RootState) => {
         displayingLevel
     }
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    chooseTrainingItems: (items: Plank[], name: string) => dispatch(TrainingActions.chooseTrainingItems(items, name))  
-});
+const mapDispatchToProps = {
+    chooseTrainingItems: TrainingActions.chooseTrainingItems 
+};
 
 export default connect(
     mapStateToProps, 

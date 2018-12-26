@@ -1,9 +1,14 @@
 import { AsyncStorage } from 'react-native';
+import {ThunkAction} from 'redux-thunk';
+import {Action, ActionCreator, Dispatch} from 'redux';
 import * as Actions from './names';
 import { Settings } from '../models';
-import { Dispatch } from 'redux';
 
 const key = 'Settings';
+
+interface IState {
+    something: boolean
+}
 
 const initialState: Settings = {
     loaded: false,
@@ -13,7 +18,7 @@ const initialState: Settings = {
     readyDuration: 3
 };
 
-export const save = (settings: Settings) => async (dispatch: Dispatch) => {
+export const save = (settings: Settings): any => async (dispatch: Dispatch) => {
     dispatch({type: Actions.SAVE_SETTINGS_START});
     try {
         await AsyncStorage.setItem(key, JSON.stringify(settings));
@@ -23,9 +28,9 @@ export const save = (settings: Settings) => async (dispatch: Dispatch) => {
         //TODO:
         dispatch({type: Actions.SAVE_SETTINGS_END, payload: settings});
     }
-}
+};
 
-export const load = () => async (dispatch: Dispatch) => {
+export const load = (): any => async (dispatch: Dispatch) => {
     dispatch({type: Actions.LOAD_SETTINGS_START});
     try {
         let settings: any = await AsyncStorage.getItem(key);
@@ -38,4 +43,21 @@ export const load = () => async (dispatch: Dispatch) => {
     } catch (e) {
         dispatch({type: Actions.LOAD_SETTINGS_END, payload: null});
     }
+};
+
+const reduxAction: ActionCreator<Action> = (text: string) => {
+    return {
+        type: ''
+    }
 }
+
+const thunkAction: ActionCreator<ThunkAction<Action, IState, void, any>> = (
+    text: string
+  ) => {
+    return (dispatch: Dispatch<Action<any>>): Action => {
+      return dispatch({
+        type: 'boolean',
+        text
+      });
+    };
+  };
