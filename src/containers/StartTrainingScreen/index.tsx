@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, ActivityIndicator } from 'react-native';
-import globalStyles from '../../styles';
+import globalStyles from '../../common/styles';
 import { connect } from 'react-redux';
 import TrainingItem from '../../components/TrainingItem';
 import * as TrainingActions from '../../actions/TrainingActions';

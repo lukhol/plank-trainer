@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
-import globalStyles from '../../styles';
+import globalStyles from '../../common/styles';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Button, Toast, Fab } from 'native-base';
 import { CustomizableTrainingItem, PickableTrainingItem, OverflowLoader, H3, ValidateableInput } from '../../components';
 import * as LevelsActions from '../../actions/LevelsActions';
-import { sec2time } from '../../utils'
+import { sec2time } from '../../common/utils'
 import { Padding } from '../../common/constants';
 import Colors from '../../common/colors';
 import Modal from 'react-native-modalbox';
 import uuid from 'uuid/v4';
-import SortableListView from 'react-native-sortable-listview';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome5';
 import i18n from '../../translations/i18n';
-import { Plank, Training } from '../../models';
+import { Plank, Training, TrainingType } from '../../models';
 import { RootState } from '../../reducers';
+import { insert } from '../../services/OwnTrainingService';
+
+//Untyped modules
+const SortableListView = require('react-native-sortable-listview');
 
 export interface Props {
     planks: Array<Plank>,
-    isLoading: boolean
+    isLoading: boolean,
+    insert: (training: Training) => any,
+    navigation: any
 }
 
 export interface State {
@@ -53,7 +58,7 @@ export class CustomTrainingScreen extends Component<Props, State> {
     }
 
     openAddModal() {
-        this.refs.modal1.open();
+        (this.refs.modal1 as any).open();
         this.setState({
             modalVisible: !this.state.modalVisible
         });
@@ -87,8 +92,9 @@ export class CustomTrainingScreen extends Component<Props, State> {
         }
         
         let customLevel = {
+            id: uuid(),
             name: this.state.name,
-            type: 'CUSTOM',
+            type: TrainingType.CUSTOM,
             planks: planksForLevel
         };
 
@@ -102,8 +108,6 @@ export class CustomTrainingScreen extends Component<Props, State> {
             menuActive: false,
             isValid: false
         });
-
-        alert(i18n.t('customTrainingScreen.errors.levelAddedSuccessfully'));
     }
 
     onItemPressed(id: string) {
@@ -115,7 +119,7 @@ export class CustomTrainingScreen extends Component<Props, State> {
             this.setState({
                 planks: [...this.state.planks, choosenPlank]
             });
-            this.refs.modal1.close();
+            (this.refs.modal1 as any).close();
         }
     }
 
@@ -161,7 +165,7 @@ export class CustomTrainingScreen extends Component<Props, State> {
                 <View style={styles.infoContainer}>
                     <ValidateableInput
                         placeholder={i18n.t('customTrainingScreen.messages.levelNameInputPlaceholder')}
-                        onChangeText={(name: string) => this.setState({name, isValid: name === '' ? false : true})}
+                        onChangeText={(name: string) => this.setState({name, isValid: name === '' ? false : true} as State)}
                         value={this.state.name}
                         style={styles.textInput}
                         isValid={this.state.isValid}
@@ -266,10 +270,11 @@ const mapDispatchToProps = {
     insert: LevelsActions.insert
 };
 
+//TODO
 type StateProps = ReturnType<typeof mapStateToProps>
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect<StateProps, DispatchProps>(
+export default connect(
     mapStateToProps, 
     mapDispatchToProps
 )(CustomTrainingScreen);

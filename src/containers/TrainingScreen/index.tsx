@@ -1,10 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { View, Image, Text, Dimensions , StyleSheet, TouchableOpacity } from 'react-native';
-import globalStyles from '../../styles';
+import globalStyles from '../../common/styles';
 import { Card } from 'native-base';
 import { connect } from 'react-redux';
-import images from '../../images';
-import Tts from 'react-native-tts';
+import images from '../../common/images';
 import { StepProgressbar } from '../../components';
 import * as HistoryActions from '../../actions/HistoryActions';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -13,14 +12,16 @@ import Colors from '../../common/colors';
 import i18n from '../../translations/i18n';
 import KeepAwake from 'react-native-keep-awake';
 import { Training, HistoryItem, Plank } from '../../models';
-import { Dispatch } from 'redux';
 import { RootState } from '../../reducers';
+
+//Untyped modules
+const Tts = require('react-native-tts');
 
 export interface Props {
     defaultWaitTime: number,
     items: Plank[],
     sound: boolean,
-    name: string | null, //TODO: why? am i missed something during porting to ts?
+    name: string, //TODO: why? am i missed something during porting to ts?
     saveTrainingHistory(historyItem: HistoryItem): any
 }
 
@@ -77,7 +78,7 @@ export class TrainingScreen extends Component<Props, State> {
     componentWillUnmount() {
         this.mounted = false;
         KeepAwake.deactivate();
-        clearInterval(this.secondElapsed);
+        clearInterval(this.secondElapsed as any); //TODO
     }
 
     speachForWait(waitTimeLeft: number) {

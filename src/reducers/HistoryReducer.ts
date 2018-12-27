@@ -9,7 +9,7 @@ export interface HistoryState {
     historyItems: Array<HistoryItem>
 }
 
-export default function(state: HistoryState = initialState, action: any) {
+export default function(state: HistoryState = initialState, action: any): HistoryState {
     switch(action.type) {
         case Actions.LOAD_HISTORY_ITEM_END:
             return {

@@ -3,19 +3,19 @@ import { View, Text } from 'react-native';
 import { Picker  } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { IconSize } from '../common/constants';
-import globalStyles from '../styles';
+import globalStyles from '../common/styles';
 
 export interface SettingsPickerProps {
     text: string,
     selectedValue: string,
     onValueChange: any,
-    data: Array<string>,
+    data: Array<Item>,
     iconName: string
 }
 
 export interface Item {
     label: string,
-    value: number
+    value: string
 };
 
 class SettingsPicker extends Component<SettingsPickerProps> {
@@ -37,7 +37,7 @@ class SettingsPicker extends Component<SettingsPickerProps> {
                         selectedValue={this.props.selectedValue}
                         onValueChange={this.props.onValueChange}
                     >
-                        {this.props.data.map((item, index) => <Picker.Item label={item.label} value={item.value} key={index} /> )}
+                        {this.props.data.map((item: any, index) => <Picker.Item label={item.label} value={item.value} key={index} /> )}
                     </Picker>
                 </View>
             </View>

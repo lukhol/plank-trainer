@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import globalStyles from '../../styles';
+import globalStyles from '../../common/styles';
 import { connect } from 'react-redux';
 import * as SettingsActions from '../../actions/SettingsActions';
 import * as HistoryActions from '../../actions/HistoryActions';

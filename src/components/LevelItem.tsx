@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { View, Animated, TouchableOpacity, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
 import { Card } from 'native-base';
-import * as Utils from '../utils';
+import * as Utils from '../common/utils';
 import { Plank, Training } from '../models';
 import H4 from '../components/H4';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { LevelType, IconSize } from '../common/constants';
+import { IconSize } from '../common/constants';
 import Colors from '../common/colors';
+import { TrainingType } from '../models';
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 export interface Props {
@@ -52,7 +53,7 @@ export default class LevelItem extends Component<Props, any> {
                         
                     </View>
                     {
-                        this.props.item.type === LevelType.CUSTOM &&  
+                        this.props.item.type === TrainingType.CUSTOM &&  
                         <AnimatedTouchable 
                             onPress={() => this.props.onDelete(this.props.item.id)}
                             style={styles.trashTouchable}>

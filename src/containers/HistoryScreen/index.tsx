@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SectionList } from 'react-native';
-import globalStyles from '../../styles';
-import { LineChart } from 'react-native-chart-kit'
+import globalStyles from '../../common/styles';
 import { Dimensions } from 'react-native'
 import { Card, CardItem } from 'native-base';
 import { Padding } from '../../common/constants';
@@ -12,6 +11,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import i18n from '../../translations/i18n';
 import { HistoryItem } from '../../models';
 import { RootState } from '../../reducers';
+
+//Untyped modules
+const LineChart = require('react-native-chart-kit').LineChart;
 
 export interface Props {
     historyList: HistoryItem[]

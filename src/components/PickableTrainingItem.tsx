@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { Card } from 'native-base';
 import H4 from '../components/H4';
-import images from '../images';
+import images from '../common/images';
 
 export interface Props {
     onPress: any,

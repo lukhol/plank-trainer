@@ -71,7 +71,7 @@ const rootNavigation = createTabNavigator(
             }
         },
         tabBarPosition: "top",
-        allowFontScaling: true
+        //allowFontScaling: true
     }
 );
 

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import createStore from './store';
+import createStore from './common/store';
 import Navigator from './Navigator';
-import RNLanguages from 'react-native-languages';
 import { initI18n } from './translations/i18n';
 import { Root } from "native-base";
+
+//Untyped modules
+const RNLanguages = require('react-native-languages');
 
 export default class App extends React.Component {
     componentDidMount() {

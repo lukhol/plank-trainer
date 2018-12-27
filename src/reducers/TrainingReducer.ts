@@ -2,12 +2,12 @@ import { Plank } from '../models';
 
 export interface TrainingState {
     items: Array<Plank>,
-    name: string | null
+    name: string
 }
 
 const initialState: TrainingState = {
     items: [],
-    name: null
+    name: ''
 };
 
 export default function(state: TrainingState = initialState, action: any) {

@@ -1,6 +1,6 @@
 import { LevelType } from '../common/constants';
 import * as Actions from '../actions/names';
-import { Training } from '../models';
+import { Training, TrainingType } from '../models';
 
 export interface LevelState {
     choosenLevelId: string,
@@ -17,96 +17,110 @@ const initialState: LevelState = {
         {
             id: "1",
             name: "Level 1",
-            type: LevelType.DEFAULT,
+            type: TrainingType.DEFAULT,
             planks: [
                 {
                     id: "full",
                     duration: 20,
-                    imageName: 'full'
+                    imageName: 'full',
+                    name: 'full'
                 },
                 {
                     id: "elbow",
                     duration: 20,
-                    imageName: 'elbow'
+                    imageName: 'elbow',
+                    name: 'elbow'
                 },
                 {
                     id: "full",
                     duration: 20,
-                    imageName: 'full'
+                    imageName: 'full',
+                    name: 'full'
                 },
                 {
                     id: "elbow",
                     duration: 20,
-                    imageName: 'elbow'
+                    imageName: 'elbow',
+                    name: 'elbow'
                 }
             ]
         },
         {
             id: "2",
             name: "Level 2",
-            type: LevelType.DEFAULT,
+            type: TrainingType.DEFAULT,
             planks: [
                 {
                     id: "full",
                     duration: 30,
-                    imageName: 'full'
+                    imageName: 'full',
+                    name: 'full'
                 },
                 {
                     id: "elbow",
                     duration: 25,
-                    imageName: 'elbow'
+                    imageName: 'elbow',
+                    name: 'elbow'
                 },
                 {
                     id: "full",
                     duration: 30,
-                    imageName: 'full'
+                    imageName: 'full',
+                    name: 'full'
                 },
                 {
                     id: "elbow",
                     duration: 25,
-                    imageName: 'elbow'
+                    imageName: 'elbow',
+                    name: 'elbow'
                 },
                 {
                     id: "reverse",
                     duration: 40,
-                    imageName: 'reverse'
+                    imageName: 'reverse',
+                    name: 'reverse'
                 }
             ]
         },
         {
             id: "3",
             name: "Level3",
-            type: LevelType.DEFAULT,
+            type: TrainingType.DEFAULT,
             planks: [
                 {
                     id: "full",
                     duration: 45,
-                    imageName: 'full'
+                    imageName: 'full',
+                    name: 'full'
                 },
                 {
                     id: "elbow",
                     duration: 60,
-                    imageName: 'elbow'
+                    imageName: 'elbow',
+                    name: 'elbow'
                 },
                 {
                     id: "full",
                     duration: 45,
-                    imageName: 'full'
+                    imageName: 'full',
+                    name: 'full'
                 },
                 {
                     id: "elbow",
                     duration: 60,
-                    imageName: 'elbow'
+                    imageName: 'elbow',
+                    name: 'elbow'
                 },
                 {   
                     id: "reverse",
                     duration: 45,
-                    imageName: 'reverse'
+                    imageName: 'reverse',
+                    name: 'reverse'
                 }
             ]
         }
     ]
-}
+};
 
 export default function(state: LevelState = initialState, action: any) {
     switch(action.type) {

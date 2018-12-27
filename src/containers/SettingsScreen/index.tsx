@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, CheckBox, StyleSheet } from 'react-native';
-import globalStyles from '../../styles';
+import { View, Text, Switch, StyleSheet } from 'react-native';
+import globalStyles from '../../common/styles';
 import { connect } from 'react-redux';
 import * as SettingsActions from '../../actions/SettingsActions';
 import { ListItem } from 'native-base';
@@ -11,6 +11,7 @@ import i18n from '../../translations/i18n';
 import { Settings } from '../../models';
 import { RootState } from '../../reducers';
 import { Dispatch } from 'redux';
+import { Item } from '../../components/SettingsPicker';
 
 export interface Props {
     settings: Settings,
@@ -63,7 +64,7 @@ export class SettingsScreen extends Component<Props, Settings> {
         this.setState({defaultWaitTime: parseInt(itemValue)});
     }
 
-    buildPickerData(): Array<SettingsPicker.Item> {
+    buildPickerData(): Item[] {
         const data = [];
         for(let i = 1 ; i <= 120 ; i++) {
             data.push({label: `${i} s`, value: i.toString()});
@@ -113,7 +114,7 @@ export class SettingsScreen extends Component<Props, Settings> {
                                 </Text>
                             </View>
                             <View style={globalStyles.endContainer}>
-                                <CheckBox
+                                <Switch
                                     value={this.state.sound}
                                     onValueChange={this.soundChange}
                                 />

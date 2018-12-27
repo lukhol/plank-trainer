@@ -3,7 +3,7 @@ export function sec2time(timeInSeconds: number): string {
         return ('000' + num).slice(size * -1); 
     };
 
-    let time: string = parseFloat(timeInSeconds).toFixed(3);
+    let time: string = timeInSeconds.toFixed(3);
     let hours: number = Math.floor(parseInt(time) / 60 / 60);
     let minutes = Math.floor(parseInt(time) / 60) % 60;
     let seconds = Math.floor(parseInt(time) - minutes * 60);
