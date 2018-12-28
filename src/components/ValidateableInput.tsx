@@ -5,9 +5,9 @@ export interface ValidatableInputProps {
     value: string,
     onChangeText: any,
     isValid: boolean
-    placeholder: string,
-    errorMessage: string,
-    style: any
+    placeholder?: string,
+    errorMessage?: string,
+    style?: any
 };
 
 class ValidatableInput extends Component<ValidatableInputProps, any> {
@@ -33,6 +33,7 @@ class ValidatableInput extends Component<ValidatableInputProps, any> {
             }
         }
 
+        const margin = this.props.style ? this.props.style.margin : 0;
         return (
             <View>
                 <TextInput 
@@ -42,7 +43,7 @@ class ValidatableInput extends Component<ValidatableInputProps, any> {
                     style={{...this.props.style, ...style}}
                 />
                 {!this.props.isValid &&
-                    <Text style={{color: 'red', marginHorizontal: this.props.style.margin + 4}}>
+                    <Text style={{color: 'red', marginHorizontal: margin + 4}}>
                         {this.props.errorMessage}
                     </Text>
                 }

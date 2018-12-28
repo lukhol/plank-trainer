@@ -15,7 +15,7 @@ import { Training, HistoryItem, Plank } from '../../models';
 import { RootState } from '../../reducers';
 
 //Untyped modules
-const Tts = require('react-native-tts');
+import Tts from 'react-native-tts';
 
 export interface Props {
     defaultWaitTime: number,

@@ -2,7 +2,6 @@ import * as Actions from '../actions/names';
 import OwnTrainingService from '../services/OwnTrainingService'
 import { Dispatch } from 'redux';
 import { Training } from '../models';
-import uuid from 'uuid/v4';
 
 export function chooseLevel(id: string) {
     return {
@@ -24,13 +23,18 @@ export const deleteById = (id: string): any => async (dispatch: Dispatch, getSta
         const { customLevels } = getState().levels;
         const afterDelete = customLevels.filter((i: Training) => i.id !== id);
         dispatch({type: Actions.DELETE_CUSTOM_LEVEL_SUCCESS, payload: afterDelete});
+    } else {
+        dispatch({type: Actions.DELETE_CUSTOM_LEVEL_ERROR});
     }
 }
 
 export const insert = (level: Training): any => async (dispatch: Dispatch) => {
     dispatch({ type: Actions.SAVE_CUSTOM_LEVEL_START, payload: level });
-    const levelWithId = {...level, id: uuid() };
-    await OwnTrainingService.insert(levelWithId);
-    const all = await OwnTrainingService.findAll();
-    dispatch({type: Actions.SAVE_CUSTOM_LEVEL_SUCCCESS, payload: all});
+    const result = await OwnTrainingService.insert(level);
+    if(result) {
+        const all = await OwnTrainingService.findAll();
+        dispatch({type: Actions.SAVE_CUSTOM_LEVEL_SUCCCESS, payload: all});
+    } else {
+        dispatch({type: Actions.SAVE_CUSTOM_LEVEL_ERROR});
+    }
 }

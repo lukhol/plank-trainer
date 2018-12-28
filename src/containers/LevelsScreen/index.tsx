@@ -102,7 +102,6 @@ const mapStateToProps = ({planks, levels}: RootState) => ({
 const mapDispatchToProps = {
     chooseLevel: LevelsActions.chooseLevel,
     findAllCustom: LevelsActions.findAllCustom,
-    insert: LevelsActions.insert,
     deleteById: LevelsActions.deleteById
 };
 

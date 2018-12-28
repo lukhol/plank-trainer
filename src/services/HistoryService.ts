@@ -3,9 +3,9 @@ import { HistoryItem } from '../models';
 
 const key = "TrainingHistory";
 
-export async function getAllTrainings() {
+export const findAllHistory = async (): Promise<HistoryItem[]> => {
     try {
-        const allJson= await AsyncStorage.getItem(key);
+        const allJson = await AsyncStorage.getItem(key);
         if(allJson !=  null) {
             const all = JSON.parse(allJson);
             return all;
@@ -13,11 +13,11 @@ export async function getAllTrainings() {
 
         return [];
     } catch (e) {
-        console.log(e);
+        return [];
     }
 }
 
-export async function saveTraining(training: HistoryItem) {
+export const saveHistory = async (training: HistoryItem): Promise<boolean> => {
     try {
         let allJson = await AsyncStorage.getItem(key);
         if(allJson == null) {
@@ -28,7 +28,11 @@ export async function saveTraining(training: HistoryItem) {
         await AsyncStorage.setItem(key, JSON.stringify(all));
         return true;
     } catch (e) {
-        console.log(e);
         return false;
     }
 }
+
+export default {
+    findAllHistory,
+    saveHistory
+};

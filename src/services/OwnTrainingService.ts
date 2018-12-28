@@ -1,24 +1,24 @@
 import { AsyncStorage } from "react-native"
-import  { Plank, Training } from '../models';
+import  {  Training } from '../models';
 
 const key = "Training";
 
-export async function deleteById(id: string) {
+export const deleteById = async (id: string): Promise<boolean> => {
     try {
         const allJson = await AsyncStorage.getItem(key);
         if(allJson != null) {
             let all = JSON.parse(allJson);
-            all = all.filter(i => i.id !== id);
+            all = all.filter((i: any) => i.id !== id);
             await AsyncStorage.setItem(key, JSON.stringify(all));
+            return true;
         }
-        return true;
+        return false;
     } catch (e) {
-        console.log(e);
         return false;
     }
 }
 
-export async function insert(training: Training) {
+export const insert = async (training: Training): Promise<boolean> => {
     try {
         let allJson = await AsyncStorage.getItem(key);
         if(allJson == null) {
@@ -29,12 +29,11 @@ export async function insert(training: Training) {
         await AsyncStorage.setItem(key, JSON.stringify(all));
         return true;
     } catch (e) {
-        console.log(e);
         return false;
     }
 }
 
-export async function findAll() {
+export const findAll = async (): Promise<Training[]> => {
     try {
         const allJson = await AsyncStorage.getItem(key);
         if(allJson == null) {
@@ -42,7 +41,6 @@ export async function findAll() {
         }
         return JSON.parse(allJson);
     } catch (e) {
-        console.log(e);
         return [];
     }
 }

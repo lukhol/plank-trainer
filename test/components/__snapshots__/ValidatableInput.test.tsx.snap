@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` ------ ValidatableInput ------  renders correctly with defaults and invalid state 1`] = `
+<View>
+  <TextInput
+    allowFontScaling={true}
+    onChangeText={[Function]}
+    style={
+      Object {
+        "borderBottomWidth": 1,
+        "borderColor": "red",
+      }
+    }
+    underlineColorAndroid="transparent"
+    value="Some value"
+  />
+  <Text
+    style={
+      Object {
+        "color": "red",
+        "marginHorizontal": 4,
+      }
+    }
+  />
+</View>
+`;
+
+exports[` ------ ValidatableInput ------  renders correctly with defaults and valid state 1`] = `
+<View>
+  <TextInput
+    allowFontScaling={true}
+    onChangeText={[Function]}
+    style={
+      Object {
+        "borderBottomWidth": 1,
+        "borderColor": "#89f450",
+      }
+    }
+    underlineColorAndroid="transparent"
+    value="Some value"
+  />
+</View>
+`;
