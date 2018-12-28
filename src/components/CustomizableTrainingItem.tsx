@@ -7,7 +7,8 @@ import images from '../common/images';
 import * as Utils from '../common/utils';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Colors from '../common/colors';
-import { IconSize } from '../common/constants'
+import { IconSize } from '../common/constants';
+import globalStyles from '../common/styles';
 
 export interface Props {
     name: string,
@@ -15,8 +16,9 @@ export interface Props {
     duration: number,
     sortHandlers: any,
     imageName: string,
-    decrease(id: string): void,
-    increase(id: string): void
+    decrease: (id: string) => void,
+    increase: (id: string) => void
+    onDelete: (id: string) => void
 }
 
 export default class CustomizableTrainingItem extends Component<Props, any> {    
@@ -46,6 +48,13 @@ export default class CustomizableTrainingItem extends Component<Props, any> {
                             resizeMode='contain'
                         />
                     </View>
+                    <TouchableOpacity 
+                        onPress={() => this.props.onDelete(this.props.id)}
+                        style={globalStyles.trashTouchable}>
+                        <View>
+                            <Icon name="trash" size={20} color={Colors.DANGER} />
+                        </View>
+                    </TouchableOpacity>
                 </Card>
             </TouchableOpacity>
         )

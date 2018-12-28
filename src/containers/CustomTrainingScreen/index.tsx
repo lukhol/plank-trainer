@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
+import { View, Text, TextInput, FlatList, StyleSheet, Alert } from 'react-native';
 import globalStyles from '../../common/styles';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 import { Button, Toast, Fab } from 'native-base';
 import { CustomizableTrainingItem, PickableTrainingItem, OverflowLoader, H3, ValidateableInput } from '../../components';
 import * as LevelsActions from '../../actions/LevelsActions';
@@ -15,7 +14,6 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome5';
 import i18n from '../../translations/i18n';
 import { Plank, Training, TrainingType } from '../../models';
 import { RootState } from '../../reducers';
-import { insert } from '../../services/OwnTrainingService';
 
 //Untyped modules
 const SortableListView = require('react-native-sortable-listview');
@@ -40,6 +38,7 @@ export class CustomTrainingScreen extends Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
+        this.onDelete = this.onDelete.bind(this);
         this.saveTraining = this.saveTraining.bind(this);
         this.openAddModal = this.openAddModal.bind(this);
         this.getOveralTime = this.getOveralTime.bind(this);
@@ -55,6 +54,12 @@ export class CustomTrainingScreen extends Component<Props, State> {
             menuActive: false,
             isValid: false
         };
+    }
+
+    onDelete(id: string) {
+        this.setState({
+            planks: this.state.planks.filter((item) => item.id !== id)
+        });
     }
 
     openAddModal() {
@@ -186,6 +191,7 @@ export class CustomTrainingScreen extends Component<Props, State> {
                             onPress={this.onItemPressed}
                             decrease={this.decreaseDuration}
                             increase={this.increaseDuration}
+                            onDelete={this.onDelete}
                         />}
                     onRowMoved={(e: any) => {
                         const testPlanks = [...this.state.planks];

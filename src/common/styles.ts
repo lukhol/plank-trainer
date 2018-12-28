@@ -32,4 +32,13 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
+    trashTouchable: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        height: 35,
+        width: 35, 
+        alignItems:"center",
+        justifyContent: "center"
+    }
 });

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Image, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { Image, TouchableWithoutFeedback, TouchableOpacity, StyleSheet, View } from 'react-native';
 import { Card } from 'native-base';
 import H4 from '../components/H4';
 import images from '../common/images';
+import { Training } from '../models';
 
 export interface Props {
-    onPress: any,
-    item: any
+    onPress: (id: string) => void,
+    item: any //TODO: Training
 }
 
 export interface State {

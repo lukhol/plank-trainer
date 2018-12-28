@@ -7,7 +7,7 @@ export const initI18n = (RNLanguages?: any): any => {
     if(RNLanguages) {
         i18n.locale = RNLanguages.language;
     } else {
-        i18n.locale = 'pl';
+        i18n.locale = 'en';
     }
     i18n.fallbacks = true;
     i18n.translations = { pl, en };
