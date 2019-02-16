@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, FlatList, StyleSheet, Alert } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 import globalStyles from '../../common/styles';
 import { connect } from 'react-redux';
 import { Button, Toast, Fab } from 'native-base';
-import { CustomizableTrainingItem, PickableTrainingItem, OverflowLoader, H3, ValidateableInput } from '../../components';
+import { CustomizableTrainingItem, PickableTrainingItem, OverflowLoader, H3, ValidatableInput } from '../../components';
 import * as LevelsActions from '../../actions/LevelsActions';
 import { sec2time } from '../../common/utils'
 import { Padding } from '../../common/constants';
@@ -79,7 +79,7 @@ export class CustomTrainingScreen extends Component<Props, State> {
         }
 
         if(planksForLevel === undefined || planksForLevel.length === 0) {
-            message += i18n.t('customTrainingScreen.errors.noPlankChoosen');
+            message += i18n.t('customTrainingScreen.errors.noPlankChosen');
         }
 
         if(hasZeroDuration) {
@@ -116,13 +116,13 @@ export class CustomTrainingScreen extends Component<Props, State> {
     }
 
     onItemPressed(id: string) {
-        const choosenPlank = {...this.planks.filter(item => item.id === id)[0]};
-        if(choosenPlank) {
-            choosenPlank.duration = 0;
-            choosenPlank.imageName = choosenPlank.id;
-            choosenPlank.id = uuid();
+        const chosenPlank = {...this.planks.filter(item => item.id === id)[0]};
+        if(chosenPlank) {
+            chosenPlank.duration = 0;
+            chosenPlank.imageName = chosenPlank.id;
+            chosenPlank.id = uuid();
             this.setState({
-                planks: [...this.state.planks, choosenPlank]
+                planks: [...this.state.planks, chosenPlank]
             });
             (this.refs.modal1 as any).close();
         }
@@ -168,17 +168,17 @@ export class CustomTrainingScreen extends Component<Props, State> {
         return (
             <View style={globalStyles.container}>
                 <View style={styles.infoContainer}>
-                    <ValidateableInput
+                    <ValidatableInput
                         placeholder={i18n.t('customTrainingScreen.messages.levelNameInputPlaceholder')}
-                        onChangeText={(name: string) => this.setState({name, isValid: name === '' ? false : true} as State)}
+                        onChangeText={(name: string) => this.setState({name, isValid: name !== ''} as State)}
                         value={this.state.name}
                         style={styles.textInput}
                         isValid={this.state.isValid}
                         errorMessage={i18n.t('customTrainingScreen.errors.nameValidationMessage')}
                     />
-                    <Text style={styles.overalTime}>
+                    <Text style={styles.overallTime}>
                         <H3 style={{color: "#eee"}}>
-                            {i18n.t('customTrainingScreen.messages.overalTime')} {this.getOveralTime()}
+                            {i18n.t('customTrainingScreen.messages.overallTime')} {this.getOveralTime()}
                         </H3>
                     </Text>
                 </View>
@@ -211,7 +211,7 @@ export class CustomTrainingScreen extends Component<Props, State> {
                             style={{flex:1}} 
                             data={this.planks}
                             renderItem={(props) => 
-                                <PickableTrainingItem 
+                                <PickableTrainingItem
                                     {...props} 
                                     onPress={this.onItemPressed}
                                 />
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
         marginBottom: 0, 
         ...globalStyles.textButton
     },
-    overalTime: {
+    overallTime: {
         margin: Padding.MD, 
         padding: Padding.SM, 
         marginTop: 0
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({planks, levels}: RootState) => ({
     planks: planks,
-    isLoading: levels.isFethingCustom
+    isLoading: levels.isFetchingCustom
 });
 
 const mapDispatchToProps = {

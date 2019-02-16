@@ -22,14 +22,14 @@
         "title": "Własny plan",
         "errors": {
             "name": "Nazwa nie może być pusta. \n",
-            "noPlankChoosen": "Musisz wybrać chociaż jednego planka. \n",
+            "noPlankChoose": "Musisz wybrać chociaż jednego planka. \n",
             "zeroDurationPlanks": "Każdy plank musi miec długość większą od 0.",
             "nameValidationMessage": "Nazwa jest wymagana."
         },
         "messages": {
             "levelNameInputPlaceholder": "Nazwa treningu...",
             "levelAddedSuccessfully": "Poziom dodany pomyślnie",
-            "overalTime": "Całkowity czas: "
+            "overallTime": "Całkowity czas: "
         }
     },
     "startTrainingScreen": {

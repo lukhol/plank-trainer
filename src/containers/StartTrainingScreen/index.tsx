@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import globalStyles from '../../common/styles';
 import { connect } from 'react-redux';
 import TrainingItem from '../../components/TrainingItem';
@@ -7,9 +7,7 @@ import * as TrainingActions from '../../actions/TrainingActions';
 import { Button } from 'native-base';
 import i18n from '../../translations/i18n';
 import { Plank, Training } from '../../models';
-import { Dispatch } from 'redux';
 import { RootState } from '../../reducers';
-import { TrainingState } from '../../reducers/TrainingReducer';
 
 export interface Props {
     planks: Plank[],
@@ -49,11 +47,11 @@ export class StartTrainingScreen extends Component<Props> {
     }
 }
 
-function preparePlanks(allPlanks: Plank[], levels: Training[], customLevels: Training[], choosenLevelId: string) {
-    let levelToDisplay = levels.find((item: Training) => item.id === choosenLevelId);
+function preparePlanks(allPlanks: Plank[], levels: Training[], customLevels: Training[], chosenLevelId: string) {
+    let levelToDisplay = levels.find((item: Training) => item.id === chosenLevelId);
     if(!levelToDisplay) {
         //If not found in default search in custom
-        levelToDisplay = customLevels.find((item: Training) => item.id === choosenLevelId) as Training; //may produce undefined error
+        levelToDisplay = customLevels.find((item: Training) => item.id === chosenLevelId) as Training; //may produce undefined error
     }
     let planks = levelToDisplay.planks;
     const propsPlanks = [];
@@ -72,12 +70,13 @@ function preparePlanks(allPlanks: Plank[], levels: Training[], customLevels: Tra
 }
 
 const mapStateToProps = ({planks, levels}: RootState) => {
-    const {computedPlanks, displayingLevel } = preparePlanks(planks, levels.levels, levels.customLevels, levels.choosenLevelId)
+    const {computedPlanks, displayingLevel } = preparePlanks(planks, levels.levels, levels.customLevels, levels.chooseLevelId)
     return {
         planks: computedPlanks,
         displayingLevel
     }
-}
+};
+
 const mapDispatchToProps = {
     chooseTrainingItems: TrainingActions.chooseTrainingItems 
 };

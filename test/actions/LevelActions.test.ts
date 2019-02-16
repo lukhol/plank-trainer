@@ -15,8 +15,8 @@ describe(' ------ HISTORY ACTIONS ------', () => {
     const level1 = {id: '1', name: '1', planks: [], type: TrainingType.CUSTOM };
     const level2 = {id: '2', name: '2', planks: [], type: TrainingType.CUSTOM };
     const levelState: LevelState = {
-        choosenLevelId: '',
-        isFethingCustom: false,
+        chooseLevelId: '',
+        isFetchingCustom: false,
         customLevels: [level1, level2],
         levels: []
     };

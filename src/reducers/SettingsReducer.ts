@@ -23,23 +23,23 @@ export default function(state: SettingsState = initialState, action: any) {
             return {
                 ...state,
                 ...action.payload
-            }
+            };
         case Actions.LOAD_SETTINGS_END: 
             return {
                 ...state,
                 ...action.payload,
                 loaded: true
-            }
+            };
         case Actions.SAVE_SETTINGS_START: 
             return {
                 ...state,
                 ...action.payload
-            }
+            };
         case Actions.SAVE_SETTINGS_END:
             return {
                 ...state,
                 ...action.payload
-            }
+            };
     }
 
     return state;

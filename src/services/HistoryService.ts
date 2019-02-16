@@ -7,15 +7,14 @@ export const findAllHistory = async (): Promise<HistoryItem[]> => {
     try {
         const allJson = await AsyncStorage.getItem(key);
         if(allJson !=  null) {
-            const all = JSON.parse(allJson);
-            return all;
+            return JSON.parse(allJson);
         }
 
         return [];
     } catch (e) {
         return [];
     }
-}
+};
 
 export const saveHistory = async (training: HistoryItem): Promise<boolean> => {
     try {
@@ -30,7 +29,7 @@ export const saveHistory = async (training: HistoryItem): Promise<boolean> => {
     } catch (e) {
         return false;
     }
-}
+};
 
 export default {
     findAllHistory,

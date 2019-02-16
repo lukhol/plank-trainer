@@ -8,7 +8,7 @@ export interface ValidatableInputProps {
     placeholder?: string,
     errorMessage?: string,
     style?: any
-};
+}
 
 class ValidatableInput extends Component<ValidatableInputProps, any> {
     constructor(props: ValidatableInputProps) {

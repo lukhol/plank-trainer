@@ -1,17 +1,16 @@
-import { LevelType } from '../common/constants';
 import * as Actions from '../actions/names';
-import { Training, TrainingType } from '../models';
+import {Training, TrainingType} from '../models';
 
 export interface LevelState {
-    choosenLevelId: string,
-    isFethingCustom: boolean,
+    chooseLevelId: string,
+    isFetchingCustom: boolean,
     customLevels: Array<Training>,
     levels: Array<Training>
 }
 
 const initialState: LevelState = {
-    choosenLevelId: '0',
-    isFethingCustom: false,
+    chooseLevelId: '0',
+    isFetchingCustom: false,
     customLevels: [],
     levels: [
         {
@@ -111,7 +110,7 @@ const initialState: LevelState = {
                     imageName: 'elbow',
                     name: 'elbow'
                 },
-                {   
+                {
                     id: "reverse",
                     duration: 45,
                     imageName: 'reverse',
@@ -122,46 +121,46 @@ const initialState: LevelState = {
     ]
 };
 
-export default function(state: LevelState = initialState, action: any) {
-    switch(action.type) {
-        case Actions.CHOSSE_LEVEL_ACTION: 
+export default function (state: LevelState = initialState, action: any) {
+    switch (action.type) {
+        case Actions.CHOSSE_LEVEL_ACTION:
             return {
                 ...state,
-                choosenLevelId: action.payload
+                chooseLevelId: action.payload
             };
-        case Actions.FETCH_CUSTOM_LEVELS_START: 
+        case Actions.FETCH_CUSTOM_LEVELS_START:
             return {
                 ...state,
-                isFethingCustom: true
+                isFetchingCustom: true
             };
         case Actions.FETCH_CUSTOM_LEVELS_SUCCESS:
             return {
                 ...state,
-                isFethingCustom: false,
+                isFetchingCustom: false,
                 customLevels: action.payload
             };
         case Actions.DELETE_CUSTOM_LEVEL_START:
             return {
                 ...state,
-                isFethingCustom: true
-            }
-        case Actions.DELETE_CUSTOM_LEVEL_SUCCESS: 
-            return {
-                ...state, 
-                isFethingCustom: false,
-                customLevels: action.payload
-            }
-        case Actions.SAVE_CUSTOM_LEVEL_START: 
+                isFetchingCustom: true
+            };
+        case Actions.DELETE_CUSTOM_LEVEL_SUCCESS:
             return {
                 ...state,
-                isFethingCustom: true
-            }
+                isFetchingCustom: false,
+                customLevels: action.payload
+            };
+        case Actions.SAVE_CUSTOM_LEVEL_START:
+            return {
+                ...state,
+                isFetchingCustom: true
+            };
         case Actions.SAVE_CUSTOM_LEVEL_SUCCCESS:
             return {
                 ...state,
-                isFethingCustom: false,
+                isFetchingCustom: false,
                 customLevels: action.payload
-            }
+            };
     }
 
     return state;

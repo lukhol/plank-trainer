@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "i18n-js": "^3.1.0",
-    "jest-serializer": "^23.0.1",
     "moment": "^2.23.0",
     "native-base": "^2.8.1",
     "prop-types": "^15.6.2",
@@ -30,13 +29,15 @@
     "react-navigation": "^2.18.2",
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",
-    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.0",
+    "redux-logger": "^3.0.6",
+    "jest-serializer": "^23.0.1",
+    "@babel/core": "7.1.0",
     "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-transform-flow-strip-types": "^7.2.3",
     "@babel/runtime": "^7.0.0",
     "@types/chai": "^4.1.7",
     "@types/i18n-js": "^3.0.1",

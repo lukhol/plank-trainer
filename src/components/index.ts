@@ -7,7 +7,7 @@ import OverflowLoader from './OverflowLoader';
 import PickableTrainingItem from './PickableTrainingItem';
 import SettingsPicker from './SettingsPicker';
 import TrainingItem from './TrainingItem';
-import ValidateableInput from './ValidateableInput';
+import ValidatableInput from './ValidateableInput';
 import StepProgressbar from './StepProgressbar';
 
 export {
@@ -18,6 +18,6 @@ export {
     PickableTrainingItem,
     SettingsPicker,
     TrainingItem,
-    ValidateableInput,
+    ValidatableInput,
     StepProgressbar
 };

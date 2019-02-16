@@ -9,4 +9,4 @@ export function chooseTrainingItems(items: Plank[], name: string) {
             name
         }
     }
-};
+}

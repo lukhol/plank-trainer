@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { View, Image, Text, Dimensions , StyleSheet, TouchableOpacity } from 'react-native';
 import globalStyles from '../../common/styles';
-import { Card } from 'native-base';
 import { connect } from 'react-redux';
 import images from '../../common/images';
 import { StepProgressbar } from '../../components';
@@ -11,7 +10,7 @@ import { IconSize, Padding } from '../../common/constants';
 import Colors from '../../common/colors';
 import i18n from '../../translations/i18n';
 import KeepAwake from 'react-native-keep-awake';
-import { Training, HistoryItem, Plank } from '../../models';
+import { HistoryItem, Plank } from '../../models';
 import { RootState } from '../../reducers';
 
 //Untyped modules
@@ -208,18 +207,18 @@ export class TrainingScreen extends Component<Props, State> {
 
     getCenter() {
         let itemsCount = this.props.items.length;
-        let currentInedx = this.state.index;
+        let currentIndex = this.state.index;
 
-        if(currentInedx === itemsCount) {
-            currentInedx = currentInedx - 1;
+        if(currentIndex === itemsCount) {
+            currentIndex = currentIndex - 1;
         }
 
         return (
             <Fragment>
                 <Text style={{...globalStyles.title, textAlign: "center", zIndex: 99, position: 'absolute', top: 0}}>
-                    {this.props.items[currentInedx].name}
+                    {this.props.items[currentIndex].name}
                 </Text>
-                <Image source={images.getById(this.props.items[currentInedx].id)}/>
+                <Image source={images.getById(this.props.items[currentIndex].id)}/>
             </Fragment>
         )
     }

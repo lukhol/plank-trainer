@@ -5,7 +5,6 @@ import * as LevelsActions from '../../actions/LevelsActions';
 import { Padding } from '../../common/constants';
 import i18n from '../../translations/i18n';
 import { OverflowLoader, LevelItem } from '../../components';
-import { Dispatch } from 'redux';
 import { Training, Plank } from '../../models';
 import { RootState } from '../../reducers';
 import { LevelState } from '../../reducers/LevelsReducer';
@@ -24,7 +23,7 @@ export class LevelsScreen extends Component<LevelsScreenProps> {
     constructor(props: LevelsScreenProps) {
         super(props);
         this.onLevelDeleted = this.onLevelDeleted.bind(this);
-        this.onLevelChoosen = this.onLevelChoosen.bind(this);
+        this.onLevelChoose = this.onLevelChoose.bind(this);
         this.renderHeader = this.renderHeader.bind(this);
         this.getSections = this.getSections.bind(this);
     }
@@ -37,7 +36,7 @@ export class LevelsScreen extends Component<LevelsScreenProps> {
         this.props.findAllCustom();
     }
 
-    onLevelChoosen(id: string) {
+    onLevelChoose(id: string) {
         this.props.chooseLevel(id);
         this.props.navigation.navigate('StartTrainingScreen');
     }
@@ -69,7 +68,7 @@ export class LevelsScreen extends Component<LevelsScreenProps> {
                     renderItem={(props) => 
                         <LevelItem 
                             onDelete={this.onLevelDeleted}
-                            onPress={this.onLevelChoosen}
+                            onPress={this.onLevelChoose}
                             {...props} 
                         />
                     }
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({planks, levels}: RootState) => ({
     planks: planks,
     levels: levels,
-    isLoading: levels.isFethingCustom
+    isLoading: levels.isFetchingCustom
 });
 
 const mapDispatchToProps = {

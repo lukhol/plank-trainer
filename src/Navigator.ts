@@ -1,12 +1,4 @@
-import React, { Component } from 'react';
-import {
-     createDrawerNavigator, 
-     createSwitchNavigator, 
-     createBottomTabNavigator,
-     createTabNavigator,
-     createAppContainer, 
-     createStackNavigator 
-} from "react-navigation";
+import {createStackNavigator, createSwitchNavigator, createTabNavigator} from "react-navigation";
 
 import LevelsScreen from './containers/LevelsScreen';
 import HistoryScreen from './containers/HistoryScreen';
@@ -31,23 +23,23 @@ const headerTitleStyle = {
 
 const rootNavigation = createTabNavigator(
     {
-        LevelsScreen: { 
-            screen: LevelsScreen, 
-            navigationOptions: {  
-                title: i18n.t('levelsScreen.title')  
+        LevelsScreen: {
+            screen: LevelsScreen,
+            navigationOptions: {
+                title: i18n.t('levelsScreen.title')
             }
         },
-        CustomTrainingScreen: { 
-            screen: CustomTrainingScreen, 
+        CustomTrainingScreen: {
+            screen: CustomTrainingScreen,
             navigationOptions: {
-                title: i18n.t('customTrainingScreen.title') 
+                title: i18n.t('customTrainingScreen.title')
             }
         },
-        HistoryScreen: { 
-            screen: HistoryScreen, 
+        HistoryScreen: {
+            screen: HistoryScreen,
             navigationOptions: {
-                title: i18n.t('historyScreen.title') 
-            }  
+                title: i18n.t('historyScreen.title')
+            }
         },
         SettingsScreen: {
             screen: SettingsScreen,
@@ -76,12 +68,12 @@ const rootNavigation = createTabNavigator(
 );
 
 const rootStackNavigation = createStackNavigator(
-    {   
-        RootScreen: { 
+    {
+        RootScreen: {
             screen: rootNavigation,
-            navigationOptions: { header: null }
+            navigationOptions: {header: null}
         },
-        StartTrainingScreen: { 
+        StartTrainingScreen: {
             screen: StartTrainingScreen,
             navigationOptions: {
                 title: i18n.t('startTrainingScreen.title'),
@@ -89,7 +81,7 @@ const rootStackNavigation = createStackNavigator(
                 headerTitleStyle: headerTitleStyle,
                 headerTintColor: Colors.ARROW //Arrow
             }
-        }, 
+        },
         TrainingScreen: {
             screen: TrainingScreen,
             navigationOptions: {
@@ -109,12 +101,12 @@ const rootStackNavigation = createStackNavigator(
             }
         }
     }
-)
+);
 
 const initStack = createSwitchNavigator(
     {
-        SplashScreen: { screen: SplashScreen },
-        RootScreen: { screen : rootStackNavigation },
+        SplashScreen: {screen: SplashScreen},
+        RootScreen: {screen: rootStackNavigation},
     }
 );
 

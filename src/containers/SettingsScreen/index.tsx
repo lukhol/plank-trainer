@@ -10,26 +10,25 @@ import { H5, SettingsPicker } from '../../components';
 import i18n from '../../translations/i18n';
 import { Settings } from '../../models';
 import { RootState } from '../../reducers';
-import { Dispatch } from 'redux';
 import { Item } from '../../components/SettingsPicker';
 
 export interface Props {
     settings: Settings,
     saveSettings(settings: Settings): void
-};
+}
 
 export interface Settings {
     defaultWaitTime: number,
     readyDuration: number,
     sound: boolean
-};
+}
 
 export class SettingsScreen extends Component<Props, Settings> {
     constructor(props: Props) {
         super(props);
         this.soundChange = this.soundChange.bind(this);
         this.buildPickerData = this.buildPickerData.bind(this);
-        this.readyDirationChanged = this.readyDirationChanged.bind(this);
+        this.readyDurationChanged = this.readyDurationChanged.bind(this);
         this.defaultWaitTimeChanged = this.defaultWaitTimeChanged.bind(this);
         this.state = {
             loaded: this.props.settings.loaded, 
@@ -48,7 +47,7 @@ export class SettingsScreen extends Component<Props, Settings> {
         this.setState({sound: !this.state.sound});
     }
 
-    readyDirationChanged(itemValue: string, index: number) {
+    readyDurationChanged(itemValue: string, index: number) {
         this.props.saveSettings({
             ...this.state,
             readyDuration: parseInt(itemValue)
@@ -93,7 +92,7 @@ export class SettingsScreen extends Component<Props, Settings> {
                         <SettingsPicker
                             text={i18n.t('settingsScreen.beforeStartCount')}
                             selectedValue={this.state.readyDuration.toString()}
-                            onValueChange={this.readyDirationChanged}
+                            onValueChange={this.readyDurationChanged}
                             data={this.buildPickerData()}
                             iconName="running"
                         />
@@ -139,7 +138,7 @@ const styles = StyleSheet.create({
     sectionTitle: {
         padding: Padding.MD
     }
-})
+});
 
 const mapStateToProps = ({settings}: RootState) => ({
     settings

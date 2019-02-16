@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import React, {Component} from 'react';
+import {ActivityIndicator, View} from 'react-native';
 import globalStyles from '../../common/styles';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import * as SettingsActions from '../../actions/SettingsActions';
 import * as HistoryActions from '../../actions/HistoryActions';
-import { Dispatch } from 'redux';
-import { RootState } from '../../reducers';
-import { Settings } from '../../models';
+import {RootState} from '../../reducers';
+import {Settings} from '../../models';
 
 export interface SplashScreenProps {
     loadHistory(): void,
@@ -26,11 +25,11 @@ export class SplashScreen extends Component<SplashScreenProps> {
             this.props.navigation.navigate('RootScreen');
         }
     }
-    
+
     render() {
         return (
             <View style={globalStyles.centerContainer}>
-                <ActivityIndicator 
+                <ActivityIndicator
                     color="green"
                     size="large" />
             </View>
@@ -48,6 +47,6 @@ const mapDispatchToProps = {
 };
 
 export default connect(
-    mapStateToProps, 
+    mapStateToProps,
     mapDispatchToProps
 )(SplashScreen);

@@ -22,14 +22,14 @@
         "title": "Custom plan",
         "errors": {
             "name": "Name cannot be empty. \n",
-            "noPlankChoosen": "Choose at least one item. \n",
+            "noPlankChoose": "Choose at least one item. \n",
             "zeroDurationPlanks": "Each plank has to be longer than 0 seconds.",
             "nameValidationMessage": "Name is required"
         },
         "messages": {
             "levelNameInputPlaceholder": "Level name...",
-            "levelAddedSuccessfully": "Level added successfylly",
-            "overalTime": "Overal time: "
+            "levelAddedSuccessfully": "Level added successfully",
+            "overallTime": "Overall time: "
         }
     },
     "startTrainingScreen": {

@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Spinner } from 'native-base';
 import Colors from '../common/colors';
 
-const  OveflowLoader: React.SFC = (props: any) => {
+const  OverflowLoader: React.SFC = (props: any) => {
     return (
         <View 
             style={{
@@ -22,6 +22,6 @@ const  OveflowLoader: React.SFC = (props: any) => {
             <Spinner color={Colors.PRIMARY} />
         </View>
     )
-}
+};
 
-export default OveflowLoader;
+export default OverflowLoader;

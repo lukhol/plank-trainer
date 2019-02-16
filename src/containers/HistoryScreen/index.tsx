@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SectionList } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, SectionList } from 'react-native';
 import globalStyles from '../../common/styles';
 import { Dimensions } from 'react-native'
 import { Card, CardItem } from 'native-base';
 import { Padding } from '../../common/constants';
 import moment, { Moment } from 'moment';
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import i18n from '../../translations/i18n';
 import { HistoryItem } from '../../models';

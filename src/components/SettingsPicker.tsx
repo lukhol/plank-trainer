@@ -16,7 +16,7 @@ export interface SettingsPickerProps {
 export interface Item {
     label: string,
     value: string
-};
+}
 
 class SettingsPicker extends Component<SettingsPickerProps> {
     render() {

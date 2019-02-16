@@ -12,6 +12,6 @@ export const initI18n = (RNLanguages?: any): any => {
     i18n.fallbacks = true;
     i18n.translations = { pl, en };
     return i18n;
-}
+};
 
 export default initI18n();
